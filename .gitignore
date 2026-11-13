@@ -1,0 +1,59 @@
+# Unity: папки, які Unity генерує сам (не комітимо)
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Файли IDE (Visual Studio, Rider, VS Code)
+.vs/
+.vscode/
+.idea/
+.consulo/
+/[Aa]ssets/Plugins/Editor/JetBrains*
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.tmp
+
+# Їхні .meta теж не потрібні
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Звіти і збірки
+sysinfo.txt
+crashlytics-build.properties
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.exe.zip
+
+# Addressables (якщо колись з'являться)
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Тимчасові файли офісних програм (GDD.docx, план задач)
+.~lock.*#
+~$*
+
+# Системні файли
+.DS_Store
+Thumbs.db
+desktop.ini

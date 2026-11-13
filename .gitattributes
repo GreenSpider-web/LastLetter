@@ -1,0 +1,45 @@
+# Нормалізація кінців рядків для всіх текстових файлів
+* text=auto
+
+# Unity YAML: зливаємо через Unity Smart Merge (UnityYAMLMerge).
+# Драйвер "unityyamlmerge" кожен налаштовує один раз: tools/setup-smartmerge.ps1
+*.unity               merge=unityyamlmerge eol=lf
+*.prefab              merge=unityyamlmerge eol=lf
+*.asset               merge=unityyamlmerge eol=lf
+*.meta                merge=unityyamlmerge eol=lf
+*.mat                 merge=unityyamlmerge eol=lf
+*.anim                merge=unityyamlmerge eol=lf
+*.controller          merge=unityyamlmerge eol=lf
+*.overrideController  merge=unityyamlmerge eol=lf
+*.physicsMaterial2D   merge=unityyamlmerge eol=lf
+*.spriteatlas         merge=unityyamlmerge eol=lf
+*.spriteatlasv2       merge=unityyamlmerge eol=lf
+*.playable            merge=unityyamlmerge eol=lf
+*.preset              merge=unityyamlmerge eol=lf
+*.mask                merge=unityyamlmerge eol=lf
+*.lighting            merge=unityyamlmerge eol=lf
+
+# Код і тексти
+*.cs      text diff=csharp
+*.ink     text
+*.json    text
+*.shader  text
+*.md      text
+
+# Бінарні файли: Git не намагається їх зливати
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.psd   binary
+*.kra   binary
+*.gif   binary
+*.wav   binary
+*.mp3   binary
+*.ogg   binary
+*.ttf   binary
+*.otf   binary
+*.fbx   binary
+*.dll   binary
+*.docx  binary
+*.xlsx  binary
+*.pdf   binary
