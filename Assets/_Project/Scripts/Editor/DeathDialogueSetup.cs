@@ -11,7 +11,7 @@ using UnityEngine;
 public static class DeathDialogueSetup
 {
     const string Root = "Assets/_Project/";
-    const string InkPath = Root + "Ink/death_dialogue.ink";
+    const string InkPath = Root + "Ink/intro_dialogue.ink";   // [CHANGED] було death_dialogue.ink
     const string BgPath = Root + "Art/Backgrounds/bg_mezha_no_death.png";
     const string DeathPath = Root + "Art/Characters/portrait_death.png";
     const string LiliaPath = Root + "Art/Characters/portrait_lilia.png";

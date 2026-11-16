@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704a8a95d3dd86747af33cd49055801a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InkDialogueView
-  inkFile: {fileID: 6231892579173505729, guid: 781ff163754a3944a874aea5fa16aa87, type: 3}
+  inkFile: {fileID: 6231892579173505729, guid: 3f02b8c7de7d4674b9059dd414971932, type: 3}
   inkAssetPath: Assets/_Project/Ink/death_dialogue.ink
   showPlayerAnswer: 0
   playerName: "\u041B\u0456\u043B\u044F"
