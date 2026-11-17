@@ -9,6 +9,7 @@ public class CursorManager : MonoBehaviour
     [SerializeField] private Texture2D examineCursor;   // лупа
     [SerializeField] private Texture2D takeCursor;      // рука
     [SerializeField] private Texture2D useCursor;       // шестерня
+    [SerializeField] private Texture2D talkCursor;      // бульбашка
 
     private Texture2D current;
     private bool hasCurrent;
@@ -28,6 +29,7 @@ public class CursorManager : MonoBehaviour
             case InteractionType.Examine: Apply(examineCursor, new Vector2(12, 12)); break;
             case InteractionType.Pickup:  Apply(takeCursor,    new Vector2(14, 4));  break;
             case InteractionType.Use:     Apply(useCursor,     new Vector2(16, 16)); break;
+            case InteractionType.Talk:    Apply(talkCursor,    new Vector2(5, 29));  break;
         }
     }
 
