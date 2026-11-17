@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;             // знадобиться в задачі 19 (параметр Speed)
 
     private Camera cam;
+    private PlayerInteractor interactor;
     private Vector2 target;
     private bool isMoving;
 
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         cam = Camera.main;
+        interactor = GetComponent<PlayerInteractor>();
         target = transform.position;
     }
 
@@ -42,6 +44,12 @@ public class PlayerController : MonoBehaviour
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
         Vector2 click = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        // клік по предмету обробляє PlayerInteractor (задача 12)
+        if (Interactable.At(click) != null) return;
+
+        // клік по землі скасовує похід до предмета
+        if (interactor != null) interactor.CancelPending();
 
         // клік поза підлогою -> найближча точка на краю WalkArea
         target = walkArea.OverlapPoint(click) ? click : walkArea.ClosestPoint(click);
@@ -82,7 +90,7 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Speed", value);
     }
 
-    // для задачі 12: підійти до предмета, потім узяти
+    // задача 12: підійти до предмета, потім узяти
     public void WalkTo(Vector2 point)
     {
         target = walkArea.ClosestPoint(point);

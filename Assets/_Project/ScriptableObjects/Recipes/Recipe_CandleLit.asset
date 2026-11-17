@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b05f0a571408744b23c72d576fbddd, type: 3}
+  m_Name: Recipe_CandleLit
+  m_EditorClassIdentifier: Assembly-CSharp::CombineRecipe
+  itemA: {fileID: 11400000, guid: dae1fbd7dbfdd5d45a5135b127e7aa58, type: 2}
+  itemB: {fileID: 11400000, guid: 21a6f510acfe9f34cb2de2978be547b1, type: 2}
+  result: {fileID: 11400000, guid: 78c30ddd72d37c5478291b1bd60768e7, type: 2}
+  successText: "\u0421\u0432\u0456\u0447\u043A\u0430 \u0433\u043E\u0440\u0438\u0442\u044C."
