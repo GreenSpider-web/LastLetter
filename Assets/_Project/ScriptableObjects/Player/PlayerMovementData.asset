@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementData
   speed: 3.5
-  nearY: -4.3
-  farY: -1
+  nearY: -4.281589
+  farY: -2.6836567
   nearScale: 1
   farScale: 0.7
