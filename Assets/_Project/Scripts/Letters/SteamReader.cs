@@ -12,8 +12,20 @@ public class SteamReader : MonoBehaviour
     [SerializeField] private GameObject sealBroken;   // зламана печатка
 
     [Header("Лист")]
-    [Tooltip("Прапорець з GameState.SliceFlags: read_letter_fisher або read_letter_tailor")]
-    [SerializeField] private string readFlag = "read_letter_fisher";
+    [Tooltip("Який лист читаємо: прапорець read_letter_* береться з нього. У грі лист передає UI_Letter")]   // [CHANGED]
+    [SerializeField] private LetterData letter;   // [CHANGED] було string readFlag — тепер назва прапорця лише в LetterData
+
+    private string ReadFlag => letter != null ? letter.ReadFlag : "";   // [NEW]
+
+    // [NEW] UI_Letter передає лист, який Ліля принесла до чайника
+    public void SetLetter(LetterData newLetter)
+    {
+        letter = newLetter;
+        ShowSeal(IsRead());
+    }
+
+    // [NEW] Чи цей лист уже читали
+    private bool IsRead() => GameState.Instance != null && GameState.Instance.GetFlag(ReadFlag);
 
     private void OnEnable()
     {
@@ -28,8 +40,7 @@ public class SteamReader : MonoBehaviour
     private void Start()
     {
         // Якщо лист уже читали раніше, печатка від початку зламана
-        bool alreadyRead = GameState.Instance != null && GameState.Instance.GetFlag(readFlag);
-        ShowSeal(alreadyRead);
+        ShowSeal(IsRead());   // [CHANGED]
     }
 
     private void OnEnvelopeOpened()
@@ -43,9 +54,10 @@ public class SteamReader : MonoBehaviour
             return;
         }
 
-        if (state.GetFlag(readFlag)) return;   // цей лист уже читали: +1 вдруге не даємо
+        if (letter == null) { Debug.LogWarning("SteamReader: не вказано лист"); return; }   // [NEW]
+        if (state.GetFlag(ReadFlag)) return;   // цей лист уже читали: +1 вдруге не даємо   // [CHANGED]
 
-        state.SetFlag(readFlag, true);
+        state.SetFlag(ReadFlag, true);   // [CHANGED]
         state.AddIntervention(1);
     }
 
@@ -62,7 +74,7 @@ public class SteamReader : MonoBehaviour
         if (GameState.Instance == null) return;
         GUI.Label(new Rect(20, 95, 600, 25),
                   "Втручання: " + GameState.Instance.Intervention + " / " + 2
-                  + "   " + readFlag + " = " + GameState.Instance.GetFlag(readFlag));
+                  + "   " + ReadFlag + " = " + GameState.Instance.GetFlag(ReadFlag));   // [CHANGED]
     }
 #endif
 }

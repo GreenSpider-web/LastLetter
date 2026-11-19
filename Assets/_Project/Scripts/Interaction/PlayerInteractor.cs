@@ -115,6 +115,10 @@ public class PlayerInteractor : MonoBehaviour
         ItemData held = HeldItem();
         if (held != null)
         {
+            // [NEW] лист адресату або над чайником — вирішує сам об'єкт (IItemReceiver)
+            IItemReceiver receiver = it.GetComponent<IItemReceiver>();
+            if (receiver != null && receiver.TryReceive(held)) return;
+
             Say(it.UseItem(held));
             return;
         }

@@ -11,6 +11,7 @@ public class UI_Bag : MonoBehaviour
     [SerializeField] private Button[] slots;                // 12 кнопок; у кожної діти Icon (Image) і Label (Text)
     [SerializeField] private Color slotColor = new Color(0.25f, 0.22f, 0.2f, 0.9f);
     [SerializeField] private Color selectedColor = new Color(0.75f, 0.6f, 0.3f, 1f);
+    [SerializeField] private AudioClip openSound;           // [NEW] sfx_paper_bag
 
     private InventoryManager inv;
 
@@ -41,7 +42,11 @@ public class UI_Bag : MonoBehaviour
         if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame) Toggle();
     }
 
-    public void Toggle() => panel.SetActive(!panel.activeSelf);
+    public void Toggle()   // [CHANGED]
+    {
+        panel.SetActive(!panel.activeSelf);
+        if (panel.activeSelf) AudioManager.PlaySfx(openSound);   // [NEW] звук відкриття сумки
+    }
 
     private void OnSlotClick(int index)
     {

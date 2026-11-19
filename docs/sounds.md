@@ -5,12 +5,13 @@
 Джерела й посилання взято з аркуша «Асети» плану задач. Відповідальний: Даніл.
 
 Статус файлу: `немає` — ще не завантажено, `є` — лежить у `Assets/_Project/Audio/...`.
+Ліцензії не відстежуємо: проєкт навчальний, гра ніде не публікується (рішення команди, 19.11).
 
 ## Музика (2)
 
 | Назва в грі | Де звучить | Джерело | Ліцензія | У титри? | Файл |
 | --- | --- | --- | --- | --- | --- |
-| mus_main_theme | титульний екран | Sad orchestral theme (obscure music) — https://opengameart.org/node/29751 | CC0 | ні | немає |
+| mus_main_theme | титульний екран | Sad orchestral theme (obscure music) — https://opengameart.org/node/29751 | CC0 | ні | є: `Music/mus_main_theme.mp3` (грає в меню і на паузі) |
 | mus_mezha_ambient | ембієнт Межі в сценах глави 1 | Short wind sound (remaxim) — https://opengameart.org/node/2699 (вітер; зациклити) | CC0 | ні | немає |
 
 Запасний варіант для теми: Kevin MacLeod (incompetech.com), лише треки з позначкою CC BY 4.0, шукати за настроєм sad / somber.
@@ -21,11 +22,11 @@
 | Назва в грі | Де звучить | Джерело | Ліцензія | У титри? | Файл |
 | --- | --- | --- | --- | --- | --- |
 | sfx_ui_click | кнопки меню, сповіщення | Kenney — Interface Sounds — https://kenney.nl/assets/interface-sounds | CC0 | ні | немає |
-| sfx_paper | відкрити сумку або лист | Kenney — RPG Audio (https://kenney.nl/assets/rpg-audio); запасний: Book Flip Sounds, Voltiment555 (https://opengameart.org/content/book-flip-sounds) | CC0 | ні | немає |
+| sfx_paper | відкрити сумку або лист | Kenney — RPG Audio (https://kenney.nl/assets/rpg-audio); запасний: Book Flip Sounds, Voltiment555 (https://opengameart.org/content/book-flip-sounds) | CC0 | ні | є: `SFX/sfx_paper_bag.ogg` (сумка), `SFX/sfx_paper_letter.ogg` (конверт) |
 | sfx_door_slam | двері | Kenney — RPG Audio; запасний: Various Sound Effects, laleksic (https://opengameart.org/node/143670) | CC0 | ні | немає |
-| sfx_footsteps_cobble | кроки по бруківці: 1-А, 1-Б, 1-В | Kenney — RPG Audio; запасний: Fantozzi's Footsteps, Grass/Sand & Stone (https://opengameart.org/node/21492) | CC0 | ні | немає |
+| sfx_footsteps_cobble | кроки по бруківці: 1-А, 1-Б, 1-В | Kenney — RPG Audio; запасний: Fantozzi's Footsteps, Grass/Sand & Stone (https://opengameart.org/node/21492) | CC0 | ні | є: `SFX/sfx_footsteps_cobble.ogg` |
 | sfx_clock_tick | годинники: 1-А (гучнішають від Втручання) | Ticking clock, bart — https://opengameart.org/content/ticking-clock (є луп на 8 тіків і окремі тіки) | CC0 | ні | немає |
-| sfx_steam | читання над парою | Steam release sounds, bart — https://opengameart.org/content/steam-release-sounds | CC0 | ні | немає |
+| sfx_steam | читання над парою | Steam release sounds, bart — https://opengameart.org/content/steam-release-sounds | CC0 | ні | є: `SFX/sfx_steam.mp3` (луп у вікні пари) |
 | sfx_bridge_bell | мешканець переходить міст | Bell dings/chimes, PWL — https://opengameart.org/node/53288 (4 варіанти дзвону) | CC0 | ні | немає |
 | (назву взяти з GDD) шурхіт ниток | пазли ниток | у плані джерела немає, шукати окремо | — | — | немає |
 

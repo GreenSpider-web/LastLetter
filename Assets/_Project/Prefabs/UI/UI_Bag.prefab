@@ -2376,6 +2376,7 @@ MonoBehaviour:
   - {fileID: 6822431494667492079}
   slotColor: {r: 0.25, g: 0.22, b: 0.2, a: 0.9}
   selectedColor: {r: 0.75, g: 0.6, b: 0.3, a: 1}
+  openSound: {fileID: 8300000, guid: dd4d7e9d3894afb4bb317793036c07e5, type: 3}
 --- !u!1 &5760114412808579873
 GameObject:
   m_ObjectHideFlags: 0

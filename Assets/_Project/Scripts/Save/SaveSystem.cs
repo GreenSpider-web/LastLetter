@@ -38,6 +38,8 @@ public class SaveSystem : MonoBehaviour
         }
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.OnChanged += MarkDirty;
+        if (LetterManager.Instance != null)                                     // [NEW]
+            LetterManager.Instance.OnLetterDelivered += letter => MarkDirty();  // [NEW]
     }
 
     private void MarkDirty()
@@ -74,6 +76,7 @@ public class SaveSystem : MonoBehaviour
 
         foreach (ItemData item in InventoryManager.Instance.Items) data.items.Add(item.id);
         data.pickedUp.AddRange(InventoryManager.Instance.PickedUp);
+        if (LetterManager.Instance != null) data.delivered.AddRange(LetterManager.Instance.DeliveredIds);   // [NEW]
 
         File.WriteAllText(SavePath, JsonUtility.ToJson(data, true));
         Debug.Log("Автозбереження: " + data.scene);
@@ -89,6 +92,7 @@ public class SaveSystem : MonoBehaviour
         foreach (FlagEntry f in data.flags) GameState.Instance.SetFlag(f.name, f.value);
         GameState.Instance.SetIntervention(data.intervention);
         InventoryManager.Instance.LoadState(data.items, data.pickedUp);
+        if (LetterManager.Instance != null) LetterManager.Instance.LoadState(data.delivered);   // [NEW]
         applying = false;
 
         SceneLoader.Load(data.scene, new Vector2(data.playerX, data.playerY));
@@ -102,6 +106,7 @@ public class SaveSystem : MonoBehaviour
         applying = true;
         GameState.Instance.ResetAll();
         InventoryManager.Instance.Clear();
+        if (LetterManager.Instance != null) LetterManager.Instance.Clear();   // [NEW]
         applying = false;
 
         SceneLoader.Load(firstScene);

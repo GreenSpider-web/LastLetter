@@ -14,10 +14,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;             // знадобиться в задачі 19 (параметр Speed)
 
+    [Header("Звук")]                                                       // [NEW]
+    [SerializeField] private AudioClip footstepSound;                      // [NEW] sfx_footsteps_cobble
+    [Tooltip("Секунд між кроками (під швидкість 3.5 од./с)")]             // [NEW]
+    [SerializeField] private float stepInterval = 0.4f;                    // [NEW]
+
     private Camera cam;
     private PlayerInteractor interactor;
     private Vector2 target;
     private bool isMoving;
+    private float stepTimer;                                // [NEW] скільки лишилось до наступного кроку
 
     public bool CanMove { get; set; } = true;               // вимкнути під час діалогу, листа, пазла
 
@@ -61,8 +67,11 @@ public class PlayerController : MonoBehaviour
         if (!isMoving)
         {
             SetAnimSpeed(0f);
+            stepTimer = 0f;     // [NEW] наступний рух почнеться з кроку
             return;
         }
+
+        PlayFootsteps();        // [NEW]
 
         Vector2 pos = transform.position;
         Vector2 next = Vector2.MoveTowards(pos, target, data.speed * Time.deltaTime);
@@ -74,6 +83,15 @@ public class PlayerController : MonoBehaviour
 
         if (Vector2.Distance(next, target) < 0.01f) isMoving = false;
         SetAnimSpeed(isMoving ? data.speed : 0f);
+    }
+
+    // [NEW] Один звук кроку кожні stepInterval секунд, поки Ліля йде (на паузі час стоїть — кроків немає)
+    private void PlayFootsteps()
+    {
+        stepTimer -= Time.deltaTime;
+        if (stepTimer > 0f) return;
+        AudioManager.PlaySfx(footstepSound);
+        stepTimer = stepInterval;
     }
 
     private void ApplyDepthScale()

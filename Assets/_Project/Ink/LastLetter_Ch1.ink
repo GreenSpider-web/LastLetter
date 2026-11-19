@@ -71,7 +71,7 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
     От і славно. #speaker:postmaster #emotion:smile
 - Твій перший лист. Адреса: «Тому, хто ловить там, де немає води». #speaker:postmaster #emotion:neutral
 Це ж не адреса… #speaker:lilia #emotion:confused
-Тут інших не буває. Не барися, листоноше. #speaker:postmaster #emotion:smile
+Тут інших не буває. Не барися, листоноше. #speaker:postmaster #emotion:smile #give_item:item_letter_fisher
 -> marka_intro
 
 === marka_intro ===
@@ -136,7 +136,7 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
 { read_letter_fisher:
     Цікаві листи пишуть живі, правда? #speaker:postmaster
 }
-Наступний. «Тій, що шиє для тієї, хто не прийде». Вулиця Ниток — за аркою. #speaker:postmaster
+Наступний. «Тій, що шиє для тієї, хто не прийде». Вулиця Ниток — за аркою. #speaker:postmaster #give_item:item_letter_tailor
 -> finish
 
 

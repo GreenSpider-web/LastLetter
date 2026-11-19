@@ -15,5 +15,7 @@ MonoBehaviour:
   letterId: tailor
   title: "\u041B\u0438\u0441\u0442 \u043A\u0440\u0430\u0432\u0447\u0438\u043D\u0456"
   addresseeId: stefaniia
-  addressDescription: "\u041A\u0440\u0430\u0432\u0447\u0438\u043D\u044F \u0421\u0442\u0435\u0444\u0430\u043D\u0456\u044F"
+  addressDescription: "\u0422\u0456\u0439, \u0449\u043E \u0448\u0438\u0454 \u0434\u043B\u044F
+    \u0442\u0456\u0454\u0457, \u0445\u0442\u043E \u043D\u0435 \u043F\u0440\u0438\u0439\u0434\u0435"
   readFlag: read_letter_tailor
+  item: {fileID: 11400000, guid: 31ed98c6290aaa6419a24c9cd0372f6a, type: 2}
