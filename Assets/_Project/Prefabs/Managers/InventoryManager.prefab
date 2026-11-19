@@ -48,3 +48,12 @@ MonoBehaviour:
   recipes:
   - {fileID: 11400000, guid: d0684dbe708b2684783dd12c31da5f4d, type: 2}
   failText: "\u0426\u0435 \u043D\u0435 \u043F\u043E\u0454\u0434\u043D\u0443\u0454\u0442\u044C\u0441\u044F."
+  allItems:
+  - {fileID: 11400000, guid: a700fcdaed92bea4c8e0fd7f06d55c9c, type: 2}
+  - {fileID: 11400000, guid: dae1fbd7dbfdd5d45a5135b127e7aa58, type: 2}
+  - {fileID: 11400000, guid: 78c30ddd72d37c5478291b1bd60768e7, type: 2}
+  - {fileID: 11400000, guid: 21a6f510acfe9f34cb2de2978be547b1, type: 2}
+  - {fileID: 11400000, guid: 3c82f6b0aa569f446b3c1be97b0663e5, type: 2}
+  - {fileID: 11400000, guid: a7afb31ba89ecaa4581b57fd86989970, type: 2}
+  - {fileID: 11400000, guid: 78d3ada67364b0d4691ec0f672b46ec1, type: 2}
+  - {fileID: 11400000, guid: cebe7a4ebdb0c684482f1f6ae7da35e1, type: 2}

@@ -54,6 +54,17 @@ public class Interactable : MonoBehaviour
         col = GetComponent<Collider2D>();
     }
 
+    // Предмет уже підібрали раніше (після «Продовжити») — не показувати знову
+    private void Start()
+    {
+        if (type == InteractionType.Pickup && InventoryManager.Instance != null &&
+            InventoryManager.Instance.WasPickedUp(SaveKey))
+            gameObject.SetActive(false);
+    }
+
+    // Унікальна назва об'єкта для збереження: «Sandbox_Player/Item_Candle»
+    public string SaveKey => gameObject.scene.name + "/" + name;
+
     // Точка об'єкта, найближча до Лілі (від неї рахуємо 1.2 од.)
     public Vector2 ClosestPointTo(Vector2 from)
     {
@@ -73,6 +84,7 @@ public class Interactable : MonoBehaviour
         if (item == null) { Debug.LogWarning($"{name}: не вказано ItemData"); return false; }
         if (InventoryManager.Instance == null || !InventoryManager.Instance.Add(item)) return false;
 
+        InventoryManager.Instance.MarkPickedUp(SaveKey);
         onInteract?.Invoke();
         gameObject.SetActive(false);
         return true;

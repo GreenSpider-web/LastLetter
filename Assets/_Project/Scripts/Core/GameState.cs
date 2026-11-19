@@ -55,4 +55,11 @@ public class GameState : MonoBehaviour
     }
 
     public void AddIntervention(int amount) => SetIntervention(Intervention + amount);
+
+    // Нова гра: усі прапорці false, Втручання 0
+    public void ResetAll()
+    {
+        foreach (string flag in SliceFlags) SetFlag(flag, false);
+        SetIntervention(0);
+    }
 }
