@@ -160,6 +160,8 @@ MonoBehaviour:
   walkArea: {fileID: 0}
   spriteRenderer: {fileID: 4668280300530654106}
   animator: {fileID: 0}
+  footstepSound: {fileID: 8300000, guid: abdf4f7ec3cf36641bf97ae00b6446cc, type: 3}
+  stepInterval: 0.4
 --- !u!114 &5337032054098370252
 MonoBehaviour:
   m_ObjectHideFlags: 0

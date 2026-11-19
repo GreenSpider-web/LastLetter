@@ -43,6 +43,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private List<Speaker> speakers = new List<Speaker>();
     [Tooltip("Усі предмети, які Ink може видати тегом #give_item")]
     [SerializeField] private List<ItemData> items = new List<ItemData>();
+    [Tooltip("Звуки для тегу #sfx:назва — шукаються за назвою файлу, напр. sfx_door_slam")]   // [NEW]
+    [SerializeField] private List<AudioClip> sounds = new List<AudioClip>();                  // [NEW]
 
     private Story story;
     private PlayerController player;
@@ -198,7 +200,7 @@ public class DialogueManager : MonoBehaviour
             if (key == "speaker") speakerId = value;
             else if (key == "emotion") currentEmotion = value;
             else if (key == "give_item") GiveItem(value);
-            else if (key == "sfx") Debug.Log("Звук: " + value);    // AudioManager — задача 32
+            else if (key == "sfx") PlaySound(value);   // [CHANGED]
         }
         return speakerId;
     }
@@ -207,7 +209,22 @@ public class DialogueManager : MonoBehaviour
     {
         ItemData item = items.Find(i => i != null && i.id == id);
         if (item == null) { Debug.LogWarning($"DialogueManager: немає ItemData з id «{id}»"); return; }
-        if (InventoryManager.Instance != null) InventoryManager.Instance.Add(item);
+        InventoryManager inv = InventoryManager.Instance;
+        if (inv == null || inv.Has(item)) return;     // [CHANGED] той самий предмет удруге не даємо
+
+        // [NEW] доставлений лист Поштмейстер повторно не видає
+        LetterManager letters = LetterManager.Instance;
+        if (letters != null && letters.IsDelivered(letters.FindByItem(item))) return;
+
+        inv.Add(item);
+    }
+
+    // [NEW] Тег #sfx:назва — короткий звук через AudioManager
+    private void PlaySound(string clipName)
+    {
+        AudioClip clip = sounds.Find(c => c != null && c.name == clipName);
+        if (clip == null) { Debug.LogWarning($"DialogueManager: немає звуку «{clipName}» у списку sounds"); return; }
+        AudioManager.PlaySfx(clip);
     }
 
     private Speaker FindSpeaker(string id)

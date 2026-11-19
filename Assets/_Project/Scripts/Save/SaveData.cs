@@ -12,6 +12,7 @@ public class SaveData
     public int intervention;                                // шкала «Втручання»
     public List<string> items = new List<string>();         // id предметів у сумці
     public List<string> pickedUp = new List<string>();      // «Сцена/Об'єкт» — що вже підібрано з підлоги
+    public List<string> delivered = new List<string>();     // [NEW] id доставлених листів (LetterManager)
 }
 
 [Serializable]

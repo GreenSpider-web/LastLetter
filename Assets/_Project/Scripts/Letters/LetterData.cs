@@ -19,9 +19,14 @@ public class LetterData : ScriptableObject
     [Tooltip("Прапорець з GameState.SliceFlags: read_letter_fisher або read_letter_tailor")]
     [SerializeField] private string readFlag = "read_letter_fisher";
 
+    [Header("Предмет у сумці")]                                                       // [NEW]
+    [Tooltip("ItemData цього листа: лист лежить у сумці й вручається як предмет")]   // [NEW]
+    [SerializeField] private ItemData item;                                           // [NEW]
+
     public string LetterId => letterId;
     public string Title => title;
     public string AddresseeId => addresseeId;
     public string AddressDescription => addressDescription;
     public string ReadFlag => readFlag;
+    public ItemData Item => item;   // [NEW]
 }

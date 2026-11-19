@@ -31,12 +31,7 @@ public class SteamMinigame : MonoBehaviour
     private void Update()
     {
         // R — почати заново (для перевірки відчуття на тестерах)
-        if (RestartPressed())
-        {
-            progress = 0f;
-            elapsed = 0f;
-            isOpened = false;
-        }
+        if (RestartPressed()) ResetGame();   // [CHANGED]
 
         if (isOpened) return;
 
@@ -45,12 +40,12 @@ public class SteamMinigame : MonoBehaviour
         // 1. Колона хитається: x = амплітуда * sin(2π * t / період)
         float columnX = PxToUnits(data.columnAmplitudePx)
                         * Mathf.Sin(2f * Mathf.PI * elapsed / data.columnPeriodSeconds);
-        steamColumn.position = new Vector3(columnX, steamColumn.position.y, 0f);
+        steamColumn.localPosition = new Vector3(columnX, steamColumn.localPosition.y, 0f);   // [CHANGED] відносно центру міні-гри
 
         // 2. Конверт їде за мишею по горизонталі, але не виходить за межі руху колони
         float limit = PxToUnits(data.columnAmplitudePx + data.columnHalfWidthPx);
-        float envelopeX = Mathf.Clamp(MouseWorldX(), -limit, limit);
-        envelope.position = new Vector3(envelopeX, envelope.position.y, 0f);
+        float envelopeX = Mathf.Clamp(MouseWorldX() - transform.position.x, -limit, limit);   // [CHANGED] миша відносно центру
+        envelope.localPosition = new Vector3(envelopeX, envelope.localPosition.y, 0f);       // [CHANGED]
 
         // 3. Конверт у парі, якщо він у смузі колони
         inSteam = Mathf.Abs(envelopeX - columnX) <= PxToUnits(data.columnHalfWidthPx);
@@ -67,6 +62,15 @@ public class SteamMinigame : MonoBehaviour
             Debug.Log("Конверт відкрито за " + openedAfter.ToString("F2") + " с");
             onOpened.Invoke();
         }
+    }
+
+    // [NEW] Почати спочатку: R у Sandbox_Steam або UI_Letter.Open у грі.
+    // Позиції колони й конверта — відносно цього об'єкта, тож міні-гра працює і в центрі камери (вікно UI_Letter)
+    public void ResetGame()
+    {
+        progress = 0f;
+        elapsed = 0f;
+        isOpened = false;
     }
 
     private float PxToUnits(float px)

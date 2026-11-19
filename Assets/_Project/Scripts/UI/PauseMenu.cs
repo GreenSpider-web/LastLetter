@@ -16,6 +16,11 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button quitButton;
     [SerializeField] private string menuScene = "MainMenu";
 
+    [Header("Музика")]                                                                  // [NEW]
+    [Tooltip("На паузі грає та сама тема, що в головному меню (mus_main_theme)")]      // [NEW]
+    [SerializeField] private AudioClip pauseMusic;                                      // [NEW]
+    private AudioClip musicBeforePause;                                                 // [NEW] що грало в сцені до паузи
+
     public static bool IsPaused { get; private set; }
 
     private void Start()
@@ -48,6 +53,8 @@ public class PauseMenu : MonoBehaviour
         IsPaused = true;
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
+        musicBeforePause = AudioManager.CurrentMusic;   // [NEW]
+        AudioManager.PlayMusic(pauseMusic);             // [NEW]
     }
 
     public void Resume()
@@ -55,6 +62,7 @@ public class PauseMenu : MonoBehaviour
         IsPaused = false;
         Time.timeScale = 1f;
         HideAll();
+        AudioManager.PlayMusic(musicBeforePause);   // [NEW] музика сцени (null — тиша)
     }
 
     private void ToMainMenu()
