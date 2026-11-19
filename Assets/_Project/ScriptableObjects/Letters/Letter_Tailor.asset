@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a3b172f210a9f4eab1c035e9daaf38, type: 3}
+  m_Name: Letter_Tailor
+  m_EditorClassIdentifier: Assembly-CSharp::LetterData
+  letterId: tailor
+  title: "\u041B\u0438\u0441\u0442 \u043A\u0440\u0430\u0432\u0447\u0438\u043D\u0456"
+  addresseeId: stefaniia
+  addressDescription: "\u041A\u0440\u0430\u0432\u0447\u0438\u043D\u044F \u0421\u0442\u0435\u0444\u0430\u043D\u0456\u044F"
+  readFlag: read_letter_tailor

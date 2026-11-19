@@ -55,6 +55,25 @@ public static class SandboxSteamSceneBuilder
         so.FindProperty("envelope").objectReferenceValue = envelope.transform;
         so.ApplyModifiedPropertiesWithoutUndo();
 
+        // [NEW] Печатка на конверті: ціла — червона, зламана — темна (дочірні квадрати конверта)
+        GameObject sealIntact = MakeSquare("SealIntact", square, envelope.transform.position,
+                   new Vector3(0.18f, 0.18f, 1f), new Color(0.75f, 0.15f, 0.15f), 3);
+        sealIntact.transform.SetParent(envelope.transform, true);
+        GameObject sealBroken = MakeSquare("SealBroken", square, envelope.transform.position,
+                   new Vector3(0.18f, 0.18f, 1f), new Color(0.25f, 0.25f, 0.25f), 3);
+        sealBroken.transform.SetParent(envelope.transform, true);
+        sealBroken.SetActive(false);
+
+        // [NEW] GameState (Втручання, прапорці) і SteamReader
+        var stateObj = new GameObject("GameState");
+        stateObj.AddComponent<GameState>();
+        var reader = manager.AddComponent<SteamReader>();
+        var readerSo = new SerializedObject(reader);
+        readerSo.FindProperty("minigame").objectReferenceValue = minigame;
+        readerSo.FindProperty("sealIntact").objectReferenceValue = sealIntact;
+        readerSo.FindProperty("sealBroken").objectReferenceValue = sealBroken;
+        readerSo.ApplyModifiedPropertiesWithoutUndo();
+
         Directory.CreateDirectory(Path.GetDirectoryName(ScenePath));
         EditorSceneManager.SaveScene(scene, ScenePath);
         AssetDatabase.SaveAssets();
