@@ -37,6 +37,7 @@ public class UI_Bag : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenu.IsPaused) return;
         if (Keyboard.current != null && Keyboard.current.tabKey.wasPressedThisFrame) Toggle();
     }
 

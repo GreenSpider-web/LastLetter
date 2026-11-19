@@ -1,6 +1,5 @@
 using System.IO;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 // Автозбереження в один слот (JSON у Application.persistentDataPath/save.json).
@@ -44,15 +43,6 @@ public class SaveSystem : MonoBehaviour
     private void MarkDirty()
     {
         if (!applying) dirty = true;
-    }
-
-    // Тимчасово, поки немає меню (задача 22): F5 — зберегти, F9 — «Продовжити»
-    private void Update()
-    {
-        var kb = Keyboard.current;
-        if (kb == null) return;
-        if (kb.f5Key.wasPressedThisFrame) Save();
-        if (kb.f9Key.wasPressedThisFrame) Continue();
     }
 
     // Кілька змін за кадр (напр. поєднання: −2 предмети, +1) — одне збереження

@@ -37,7 +37,7 @@ public class UI_Dialogue : MonoBehaviour
 
     private void Update()
     {
-        if (!window.activeSelf) return;
+        if (!window.activeSelf || PauseMenu.IsPaused) return;
 
         if (IsTyping)
         {
