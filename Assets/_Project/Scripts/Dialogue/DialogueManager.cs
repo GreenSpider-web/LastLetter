@@ -7,7 +7,8 @@ using UnityEngine;
 // Запускає розмови з LastLetter_Ch1.ink і зв'язує змінні Ink з GameState:
 //  перед розмовою GameState → Ink (Ink бачить актуальні прапорці),
 //  коли Ink виконує «~ prologue_done = true» → значення одразу йде в GameState.
-// Теги в Ink: #speaker:marka — хто говорить; #give_item:item_thimble — предмет у сумку; #sfx:… — звук (задача 32).
+// Теги в Ink: #speaker:marka — хто говорить; #emotion:angry — вираз обличчя на портреті;
+// #give_item:item_thimble — предмет у сумку; #sfx:… — звук (задача 32).
 public class DialogueManager : MonoBehaviour
 {
     [Serializable]
@@ -15,8 +16,24 @@ public class DialogueManager : MonoBehaviour
     {
         public string id = "marka";             // як у тегу #speaker:marka
         public string displayName = "Марка";    // що бачить гравець
-        public Sprite portrait;                 // портрет 512×512 (задача 34)
+        public Sprite portrait;                 // портрет 512×512 (задача 34) — звичайний вираз
         public Color nameColor = Color.white;
+        [Tooltip("Інші вирази обличчя; name — як у тегу #emotion:angry")]
+        public List<Emotion> emotions = new List<Emotion>();
+
+        // Портрет для виразу обличчя; якщо такого не намальовано — звичайний
+        public Sprite GetPortrait(string emotion)
+        {
+            Emotion e = emotions.Find(x => x.name == emotion);
+            return e != null && e.portrait != null ? e.portrait : portrait;
+        }
+    }
+
+    [Serializable]
+    public class Emotion
+    {
+        public string name = "angry";           // smile, angry, surprised, scared, sad, confused
+        public Sprite portrait;
     }
 
     public static DialogueManager Instance { get; private set; }
@@ -30,6 +47,7 @@ public class DialogueManager : MonoBehaviour
     private Story story;
     private PlayerController player;
     private string currentKnot;
+    private string currentEmotion;      // з тегу #emotion поточного рядка
 
     public bool IsOpen { get; private set; }
 
@@ -142,7 +160,7 @@ public class DialogueManager : MonoBehaviour
     {
         Speaker s = FindSpeaker(speakerId);
         string name = s != null ? s.displayName : "";
-        Sprite face = s != null ? s.portrait : null;
+        Sprite face = s != null ? s.GetPortrait(currentEmotion) : null;
         Color color = s != null ? s.nameColor : Color.white;
         bool narrator = speakerId == "narrator";     // опис дії — курсивом, без імені
 
@@ -168,6 +186,7 @@ public class DialogueManager : MonoBehaviour
     private string ReadTags(List<string> tags)
     {
         string speakerId = "";
+        currentEmotion = "";
         foreach (string tag in tags)
         {
             string[] parts = tag.Split(':');
@@ -177,6 +196,7 @@ public class DialogueManager : MonoBehaviour
             string value = parts[1].Trim();
 
             if (key == "speaker") speakerId = value;
+            else if (key == "emotion") currentEmotion = value;
             else if (key == "give_item") GiveItem(value);
             else if (key == "sfx") Debug.Log("Звук: " + value);    // AudioManager — задача 32
         }

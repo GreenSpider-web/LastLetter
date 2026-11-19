@@ -9,19 +9,37 @@ using UnityEngine;
 // портрет того, хто говорить, над панеллю (справа або зліва),
 // текст друкується по літері, клік / Space / Enter — далі.
 // Ім'я мовця береться з рядка Ink до двокрапки: "Смерть: Привіт." -> мовець "Смерть".
+// Або з тегів (як у LastLetter_Ch1.ink): #speaker:postmaster — хто говорить, #emotion:angry — вираз обличчя.
 // Тестова версія на OnGUI; справжній DialogueManager на Canvas — задача 14.
 public class InkDialogueView : MonoBehaviour
 {
     [Serializable]
     public class Speaker
     {
-        public string name = "Смерть";      // як у .ink перед двокрапкою
-        public Sprite portrait;
+        public string name = "Смерть";      // як у .ink перед двокрапкою; для тегів — що показати
+        public string id = "";              // як у тегу #speaker:postmaster (якщо .ink з тегами)
+        public Sprite portrait;             // звичайний вираз
         public bool onLeft;                 // false = справа
         public Color nameColor = Color.white;
+        public List<Emotion> emotions = new List<Emotion>();   // інші вирази: name — як у #emotion:angry
+
+        public Sprite GetPortrait(string emotion)
+        {
+            Emotion e = emotions.Find(x => x.name == emotion);
+            return e != null && e.portrait != null ? e.portrait : portrait;
+        }
+    }
+
+    [Serializable]
+    public class Emotion
+    {
+        public string name = "angry";
+        public Sprite portrait;
     }
 
     [SerializeField] InkFile inkFile;
+    [SerializeField] string startKnot = "";        // з якого вузла почати (порожньо — з початку файлу)
+    [SerializeField] bool showBothPortraits = false;   // показувати обох: хто мовчить — притемнений
     [SerializeField, HideInInspector] string inkAssetPath;   // запасний шлях, щоб у редакторі знайти .ink, якщо поле злетить
     [SerializeField] bool showPlayerAnswer = false; // показувати вибрану відповідь окремою реплікою
     [SerializeField] string playerName = "Ліля";   // так підписуються відповіді гравця
@@ -40,6 +58,9 @@ public class InkDialogueView : MonoBehaviour
     Story story;
     string speakerName = "";
     string lineText = "";
+    bool narrator;              // рядок оповідача (#speaker:narrator) — курсивом
+    Sprite currentSprite;       // портрет того, хто говорить
+    Sprite leftSprite, rightSprite;   // останні портрети зліва і справа (для showBothPortraits)
     float shownChars;
     GUIStyle textStyle, nameStyle, choiceStyle, hintStyle;
     int stylesForHeight = -1;   // для якої висоти екрана створені стилі
@@ -50,11 +71,13 @@ public class InkDialogueView : MonoBehaviour
 
 #if UNITY_EDITOR
     // Викликає скрипт DeathDialogueSetup, коли збирає сцену
-    public void Setup(InkFile ink, List<Speaker> list)
+    public void Setup(InkFile ink, List<Speaker> list, string knot = "", bool bothPortraits = false)
     {
         inkFile = ink;
         inkAssetPath = UnityEditor.AssetDatabase.GetAssetPath(ink);
         speakers = list;
+        startKnot = knot;
+        showBothPortraits = bothPortraits;
     }
 #endif
 
@@ -72,6 +95,7 @@ public class InkDialogueView : MonoBehaviour
         }
         story = new Story(inkFile.storyJson);
         ConnectGameState();
+        if (!string.IsNullOrEmpty(startKnot)) story.ChoosePathString(startKnot);
         NextLine();
     }
 
@@ -94,10 +118,18 @@ public class InkDialogueView : MonoBehaviour
         while (story.canContinue)
         {
             string raw = story.Continue().Trim();
+            ReadTags(story.currentTags, out string tagSpeaker, out string emotion);
             if (raw.Length == 0) continue;
 
+            narrator = tagSpeaker == "narrator";
             var match = SpeakerRegex.Match(raw);
-            if (match.Success)
+            if (tagSpeaker.Length > 0)
+            {
+                Speaker byId = speakers.Find(s => s.id == tagSpeaker);
+                speakerName = byId != null ? byId.name : "";
+                lineText = raw;
+            }
+            else if (match.Success)
             {
                 speakerName = match.Groups[1].Value.Trim();
                 lineText = match.Groups[2].Value;
@@ -107,8 +139,32 @@ public class InkDialogueView : MonoBehaviour
                 speakerName = "";   // рядок без імені — опис / оповідач
                 lineText = raw;
             }
+
+            // портрет під емоцію; запам'ятати, хто стоїть зліва і справа
+            Speaker speaker = FindSpeaker(speakerName);
+            currentSprite = speaker != null ? speaker.GetPortrait(emotion) : null;
+            if (speaker != null && currentSprite != null)
+            {
+                if (speaker.onLeft) leftSprite = currentSprite;
+                else rightSprite = currentSprite;
+            }
+
             shownChars = 0;
             return;
+        }
+    }
+
+    // #speaker:… і #emotion:… з поточного рядка
+    static void ReadTags(List<string> tags, out string speaker, out string emotion)
+    {
+        speaker = "";
+        emotion = "";
+        foreach (string tag in tags)
+        {
+            string[] parts = tag.Split(':');
+            if (parts.Length < 2) continue;
+            if (parts[0].Trim() == "speaker") speaker = parts[1].Trim();
+            else if (parts[0].Trim() == "emotion") emotion = parts[1].Trim();
         }
     }
 
@@ -156,7 +212,13 @@ public class InkDialogueView : MonoBehaviour
         Speaker speaker = FindSpeaker(speakerName);
 
         // 1) портрет — до панелі, щоб панель трохи його перекривала знизу
-        if (speaker != null && speaker.portrait != null) DrawPortrait(speaker, box);
+        if (showBothPortraits)
+        {
+            // хто говорить — яскравий, хто мовчить — притемнений
+            if (leftSprite != null) DrawPortrait(leftSprite, true, box, speaker == null || !speaker.onLeft);
+            if (rightSprite != null) DrawPortrait(rightSprite, false, box, speaker == null || speaker.onLeft);
+        }
+        else if (speaker != null && currentSprite != null) DrawPortrait(currentSprite, speaker.onLeft, box, false);
 
         // 2) панель
         GUI.color = boxColor;
@@ -174,7 +236,8 @@ public class InkDialogueView : MonoBehaviour
         // 4) текст, що друкується
         var textRect = new Rect(box.x + 28, box.y + 18 + nameH, box.width - 56, box.height - nameH - 40);
         int visible = Mathf.Clamp(Mathf.FloorToInt(shownChars), 0, lineText.Length);
-        GUI.Label(textRect, lineText.Substring(0, visible), textStyle);
+        string shown = lineText.Substring(0, visible);
+        GUI.Label(textRect, narrator ? "<i>" + shown + "</i>" : shown, textStyle);
 
         bool showChoices = !IsTyping && !story.canContinue && HasChoices;
         bool ended = !IsTyping && !story.canContinue && !HasChoices;
@@ -234,19 +297,20 @@ public class InkDialogueView : MonoBehaviour
         return null;
     }
 
-    void DrawPortrait(Speaker speaker, Rect box)
+    void DrawPortrait(Sprite sprite, bool onLeft, Rect box, bool dim)
     {
-        Sprite sprite = speaker.portrait;
         Texture tex = sprite.texture;
         Rect tr = sprite.textureRect;
 
         float h = Screen.height * portraitHeight;
         float w = h * tr.width / tr.height;
-        float x = speaker.onLeft ? box.x + 20 : box.xMax - w - 20;
+        float x = onLeft ? box.x + 20 : box.xMax - w - 20;
         var rect = new Rect(x, box.y - h + box.height * 0.12f, w, h);
 
         var uv = new Rect(tr.x / tex.width, tr.y / tex.height, tr.width / tex.width, tr.height / tex.height);
+        GUI.color = dim ? new Color(0.45f, 0.45f, 0.45f, 1f) : Color.white;
         GUI.DrawTextureWithTexCoords(rect, tex, uv);
+        GUI.color = Color.white;
     }
 
     void CreateStyles()

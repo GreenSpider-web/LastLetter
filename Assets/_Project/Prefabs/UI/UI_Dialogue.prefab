@@ -611,32 +611,53 @@ MonoBehaviour:
   speakers:
   - id: lilia
     displayName: "\u041B\u0456\u043B\u044F"
-    portrait: {fileID: 0}
+    portrait: {fileID: -8305282536142744677, guid: b65ee01cc8f849749b5b0c6c84744db7, type: 3}
     nameColor: {r: 0.72, g: 0.83, b: 0.96, a: 1}
+    emotions:
+    - name: sad
+      portrait: {fileID: 1314585971485909193, guid: 93a35875b414ccb44bcdb77b9c403ca3, type: 3}
+    - name: scared
+      portrait: {fileID: 5757214950932797864, guid: 18fd6002f63a3804c87ced304847a75c, type: 3}
+    - name: surprised
+      portrait: {fileID: -3403777478107517917, guid: 1af1e0c6f159d894bbceb8f1c806e024, type: 3}
+    - name: confused
+      portrait: {fileID: 396607427145967686, guid: b7a1deea9ea5e4742bfe473647523fab, type: 3}
   - id: marka
     displayName: "\u041C\u0430\u0440\u043A\u0430"
     portrait: {fileID: 0}
     nameColor: {r: 0.95, g: 0.85, b: 0.6, a: 1}
+    emotions: []
   - id: postmaster
     displayName: "\u041F\u043E\u0448\u0442\u043C\u0435\u0439\u0441\u0442\u0435\u0440"
-    portrait: {fileID: 0}
+    portrait: {fileID: 817795501308206038, guid: 72db9ec0f56b82447a982794876d0d71, type: 3}
     nameColor: {r: 0.85, g: 0.7, b: 0.65, a: 1}
+    emotions:
+    - name: smile
+      portrait: {fileID: -8593179421545588072, guid: 77b89f2a85814074c9b67c1fe839b763, type: 3}
+    - name: neutral
+      portrait: {fileID: 817795501308206038, guid: 72db9ec0f56b82447a982794876d0d71, type: 3}
+    - name: angry
+      portrait: {fileID: 6746612132835300311, guid: f2ad714b1fa03c348ab73dd83a67be76, type: 3}
   - id: panteleimon
     displayName: "\u041F\u0430\u043D\u0442\u0435\u043B\u0435\u0439\u043C\u043E\u043D"
     portrait: {fileID: 0}
     nameColor: {r: 0.75, g: 0.85, b: 0.8, a: 1}
+    emotions: []
   - id: stefania
     displayName: "\u041F\u0430\u043D\u0456 \u0421\u0442\u0435\u0444\u0430\u043D\u0456\u044F"
     portrait: {fileID: 0}
     nameColor: {r: 0.9, g: 0.75, b: 0.8, a: 1}
+    emotions: []
   - id: umbrella_woman
     displayName: "\u0416\u0456\u043D\u043A\u0430 \u0437 \u043F\u0430\u0440\u0430\u0441\u043E\u043B\u044C\u043A\u043E\u044E"
     portrait: {fileID: 0}
     nameColor: {r: 0.8, g: 0.8, b: 0.9, a: 1}
+    emotions: []
   - id: clockmaker
     displayName: "\u0413\u043E\u0434\u0438\u043D\u043D\u0438\u043A\u0430\u0440"
     portrait: {fileID: 0}
     nameColor: {r: 0.85, g: 0.8, b: 0.65, a: 1}
+    emotions: []
   items:
   - {fileID: 11400000, guid: a700fcdaed92bea4c8e0fd7f06d55c9c, type: 2}
   - {fileID: 11400000, guid: dae1fbd7dbfdd5d45a5135b127e7aa58, type: 2}

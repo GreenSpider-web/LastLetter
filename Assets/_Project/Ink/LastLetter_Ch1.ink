@@ -8,6 +8,8 @@
 //    через DialogueManager.StartKnot("назва").
 //  • Тег #speaker:… — хто говорить (для портрета й імені у вікні діалогу).
 //  • Тег #give_item:… — Unity кладе предмет у сумку.
+//  • Тег #emotion:… — вираз обличчя на портреті (neutral, smile, angry,
+//    surprised, scared, sad, confused). Без тегу — neutral.
 //  • Блок ТЕСТ унизу — лише для перевірки в Inky, гра його не запускає.
 // =====================================================================
 
@@ -31,14 +33,45 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
 // =====================================================================
 
 === postmaster_intro ===
-А, нова листоноша. Попередня… пішла. Сумка тобі якраз. #speaker:postmaster
-Правило одне: кожен лист має дійти. Ну, майже кожен. #speaker:postmaster
+// Вступ: Ліля приходить до тями на Пошті (L1_PostSquare)
+(Тиша. Десь дзенькають ключі. За прилавком хтось розглядає поштову марку крізь круглі окуляри.) #speaker:narrator
+О. Прокинулась. #speaker:postmaster #emotion:smile
+Де… де я? #speaker:lilia #emotion:scared
+На Пошті, звісно. Де ж іще бути листоноші? #speaker:postmaster #emotion:smile
+Я не листоноша. #speaker:lilia #emotion:confused
+А сумка на тобі чия? #speaker:postmaster #emotion:smile
+(Ліля дивиться вниз. Через плече — стара шкіряна сумка. Рукав кофти мокрий, і з нього досі капає.) #speaker:narrator
 + [Я не пам'ятаю, як сюди потрапила.]
-    Я не пам'ятаю, як сюди потрапила. #speaker:lilia
-    Тут ніхто не пам'ятає. Це навіть зручно. #speaker:postmaster
-+ [Кому цей лист?]
-    Кому цей лист? #speaker:lilia
-- Перший лист. Адреса: «Тому, хто ловить там, де немає води». Не барися. #speaker:postmaster
+    Я не пам'ятаю, як сюди потрапила. #speaker:lilia #emotion:sad
+    Тут ніхто не пам'ятає. Повір, так легше. #speaker:postmaster #emotion:neutral
++ [Хто ви?]
+    Хто ви? #speaker:lilia #emotion:confused
+    Поштмейстер. Просто Поштмейстер. Імена тут швидко вицвітають — як чорнило на сонці. #speaker:postmaster #emotion:smile
++ [Я хочу додому.]
+    Я хочу додому. #speaker:lilia #emotion:sad
+    Усі хочуть. Але спершу — робота. #speaker:postmaster #emotion:neutral
+- Попередня листоноша… пішла. Тож сумка тепер твоя. #speaker:postmaster #emotion:neutral
+Куди пішла? #speaker:lilia #emotion:confused
+Далі. #speaker:postmaster #emotion:smile
+(Він кладе на прилавок конверт. Папір пожовклий, сургучна печатка ціла.) #speaker:narrator
+Він… теплий. #speaker:lilia #emotion:surprised
+Листи від живих завжди теплі. Не звикай. #speaker:postmaster #emotion:neutral
+Правило одне, і воно просте: кожен лист має дійти до адресата. #speaker:postmaster #emotion:neutral
+Запечатаним. #speaker:postmaster #emotion:smile
++ [А якщо я не знайду, кому він?]
+    А якщо я не знайду, кому він? #speaker:lilia #emotion:scared
+    Знайдеш. Листи завжди знаходять своїх. Іноді — надто пізно. #speaker:postmaster #emotion:neutral
++ [А можна подивитися, що там написано?]
+    А можна… подивитися, що там написано? #speaker:lilia #emotion:neutral
+    (Ключі на його поясі різко дзенькають.) #speaker:narrator
+    Ні. #speaker:postmaster #emotion:angry
+    Чужі слова — не для твоїх очей. Ніколи. Зрозуміла? #speaker:postmaster #emotion:angry
+    Т-так… #speaker:lilia #emotion:scared
+    (За мить він знову усміхається, ніби нічого не сталося.) #speaker:narrator
+    От і славно. #speaker:postmaster #emotion:smile
+- Твій перший лист. Адреса: «Тому, хто ловить там, де немає води». #speaker:postmaster #emotion:neutral
+Це ж не адреса… #speaker:lilia #emotion:confused
+Тут інших не буває. Не барися, листоноше. #speaker:postmaster #emotion:smile
 -> marka_intro
 
 === marka_intro ===
