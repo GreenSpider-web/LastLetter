@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 using UnityEngine.UI;
 
 // Вікно діалогу внизу екрана: ім'я, портрет, текст, що друкується по літері, варіанти відповіді.
@@ -10,8 +11,8 @@ public class UI_Dialogue : MonoBehaviour
 {
     [SerializeField] private GameObject window;           // панель + портрет + варіанти
     [SerializeField] private Button panelButton;          // клік по панелі — далі
-    [SerializeField] private Text nameText;
-    [SerializeField] private Text bodyText;
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text bodyText;
     [SerializeField] private Image portrait;
     [SerializeField] private Button[] choiceButtons;      // 4 кнопки (у GDD — до 4 варіантів)
     [Tooltip("Швидкість друку, літер за секунду")]
@@ -56,7 +57,7 @@ public class UI_Dialogue : MonoBehaviour
 
         nameText.text = speaker;
         nameText.color = nameColor;
-        bodyText.fontStyle = narrator ? FontStyle.Italic : FontStyle.Normal;
+        bodyText.fontStyle = narrator ? FontStyles.Italic : FontStyles.Normal;
 
         portrait.sprite = face;
         portrait.enabled = face != null;
@@ -105,7 +106,7 @@ public class UI_Dialogue : MonoBehaviour
         {
             bool has = i < pendingChoices.Count;
             choiceButtons[i].gameObject.SetActive(has);
-            if (has) choiceButtons[i].GetComponentInChildren<Text>().text = pendingChoices[i];
+            if (has) choiceButtons[i].GetComponentInChildren<TMP_Text>().text = pendingChoices[i];
         }
         pendingChoices = null;
         choicesShown = true;

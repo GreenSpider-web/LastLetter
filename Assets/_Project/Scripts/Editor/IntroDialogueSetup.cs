@@ -71,7 +71,7 @@ public static class IntroDialogueSetup
 
         var view = new GameObject("Dialogue").AddComponent<InkDialogueView>();
         view.Setup(ink, new List<InkDialogueView.Speaker> { lilia, postmaster, marka },
-                   "postmaster_intro", true);
+                   "postmaster_intro", true, "Sandbox_Player");   // після вступу — у гру (L1_PostSquare, коли буде)
         var vso = new SerializedObject(view);
         vso.FindProperty("boxColor").colorValue = new Color(0.06f, 0.05f, 0.05f, 1f);   // суцільна панель
         vso.ApplyModifiedPropertiesWithoutUndo();

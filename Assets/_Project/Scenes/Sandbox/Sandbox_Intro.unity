@@ -338,6 +338,7 @@ MonoBehaviour:
   inkFile: {fileID: 6231892579173505729, guid: 02dd3133dd55ff14097da1209a9cc0aa, type: 3}
   startKnot: postmaster_intro
   showBothPortraits: 1
+  nextScene: Sandbox_Player
   inkAssetPath: Assets/_Project/Ink/LastLetter_Ch1.ink
   showPlayerAnswer: 0
   playerName: "\u041B\u0456\u043B\u044F"

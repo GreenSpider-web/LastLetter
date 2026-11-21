@@ -276,14 +276,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InkDialogueView
   inkFile: {fileID: 6231892579173505729, guid: 3f02b8c7de7d4674b9059dd414971932, type: 3}
+  startKnot: 
+  showBothPortraits: 0
+  nextScene: 
   inkAssetPath: Assets/_Project/Ink/death_dialogue.ink
   showPlayerAnswer: 0
   playerName: "\u041B\u0456\u043B\u044F"
   speakers:
   - name: "\u0421\u043C\u0435\u0440\u0442\u044C"
+    id: 
     portrait: {fileID: 21300000, guid: f45eb28ec868856429bed0757b9f5e17, type: 3}
     onLeft: 0
     nameColor: {r: 0.78, g: 0.9, b: 0.84, a: 1}
+    emotions: []
   fontSize: 26
   charsPerSecond: 45
   boxHeight: 0.27
