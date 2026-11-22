@@ -608,7 +608,7 @@ MonoBehaviour:
   minigame: {fileID: 1655927319}
   sealIntact: {fileID: 933483184}
   sealBroken: {fileID: 1183685290}
-  letter: {fileID: 0}
+  letter: {fileID: 11400000, guid: bcccccaf32fe8f84ba3b37996c54898c, type: 2}
 --- !u!114 &1655927319
 MonoBehaviour:
   m_ObjectHideFlags: 0

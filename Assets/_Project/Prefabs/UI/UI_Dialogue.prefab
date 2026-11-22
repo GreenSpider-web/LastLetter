@@ -740,7 +740,7 @@ MonoBehaviour:
       portrait: {fileID: 396607427145967686, guid: b7a1deea9ea5e4742bfe473647523fab, type: 3}
   - id: marka
     displayName: "\u041C\u0430\u0440\u043A\u0430"
-    portrait: {fileID: 0}
+    portrait: {fileID: -2266317128062261159, guid: 017aaa304b2b5444ba79d465cf35c6aa, type: 3}
     nameColor: {r: 0.95, g: 0.85, b: 0.6, a: 1}
     emotions: []
   - id: postmaster

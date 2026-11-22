@@ -15,7 +15,8 @@ public class GameState : MonoBehaviour
         "tailor_closed", "tailor_left",
         "lantern_lit",          // ліхтар біля мосту запалено (змінна є в LastLetter_Ch1.ink)   // [CHANGED] кома
         "puzzle_gate_solved",   // [NEW] пазл ниток «Хвіртка» розв'язано (ThreadPuzzleData, задача 23)
-        "puzzle_hall_solved"    // [NEW] пазл ниток «Коридор» розв'язано
+        "puzzle_hall_solved",   // [NEW] пазл ниток «Коридор» розв'язано   // [CHANGED] кома
+        "intro_done"            // [NEW] вступ Поштмейстера вже був (IntroDialogue); «Нова гра» скидає його
     };
 
     readonly Dictionary<string, bool> flags = new Dictionary<string, bool>();

@@ -23,10 +23,16 @@ public class LetterData : ScriptableObject
     [Tooltip("ItemData цього листа: лист лежить у сумці й вручається як предмет")]   // [NEW]
     [SerializeField] private ItemData item;                                           // [NEW]
 
+    [Header("Текст листа")]                                                                          // [NEW]
+    [Tooltip("Що написано в листі: показує UI_LetterRead після читання над парою. Тексти — Софія")]  // [NEW]
+    [TextArea(4, 12)]                                                                                // [NEW]
+    [SerializeField] private string body = "";                                                       // [NEW]
+
     public string LetterId => letterId;
     public string Title => title;
     public string AddresseeId => addresseeId;
     public string AddressDescription => addressDescription;
     public string ReadFlag => readFlag;
     public ItemData Item => item;   // [NEW]
+    public string Body => body;     // [NEW]
 }

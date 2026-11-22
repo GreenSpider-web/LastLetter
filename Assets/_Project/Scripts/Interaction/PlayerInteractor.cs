@@ -139,6 +139,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private bool InRange(Interactable it)
     {
+        if (it.AlwaysInReach) return true;     // [NEW] до Марки не треба йти — він і так поруч
         Vector2 me = transform.position;
         return Vector2.Distance(me, it.ClosestPointTo(me)) <= interactRange;
     }
