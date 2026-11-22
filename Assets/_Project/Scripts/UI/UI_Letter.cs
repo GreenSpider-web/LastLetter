@@ -25,6 +25,7 @@ public class UI_Letter : MonoBehaviour
 
     private PlayerController player;
     private AudioSource loop;
+    private LetterData currentLetter;   // [NEW] який лист зараз над парою
 
     public bool IsOpen => window.activeSelf;
 
@@ -40,6 +41,7 @@ public class UI_Letter : MonoBehaviour
         if (player != null) { player.Stop(); player.CanMove = false; }
 
         reader.SetLetter(letter);
+        currentLetter = letter;   // [NEW]
         window.SetActive(true);
         minigame.ResetGame();
         loop = AudioManager.PlayLoop(steamLoop);
@@ -78,7 +80,16 @@ public class UI_Letter : MonoBehaviour
         window.SetActive(false);
         if (player != null) player.CanMove = true;
 
-        if (wasRead && DialogueManager.Instance != null && !string.IsNullOrEmpty(afterReadingKnot))
+        if (!wasRead) return;   // [CHANGED]
+
+        // [NEW] спершу аркуш із текстом листа (вікно створюється саме), а коли гравець його складе ПКМ — репліка Марки
+        UI_LetterRead.Show(currentLetter, StartAfterReadingKnot);
+    }
+
+    // [NEW] Репліка Марки після читання (раніше запускалась одразу в Close)
+    private void StartAfterReadingKnot()
+    {
+        if (DialogueManager.Instance != null && !string.IsNullOrEmpty(afterReadingKnot))
             DialogueManager.Instance.StartKnot(afterReadingKnot);
     }
 }

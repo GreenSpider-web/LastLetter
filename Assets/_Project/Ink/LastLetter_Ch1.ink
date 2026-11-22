@@ -99,6 +99,11 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
 Ну от. Тепер ти знаєш те, чого не мала знати. #speaker:marka
 -> finish
 
+=== marka_hello ===
+// клік по Марці (Companion_Marka)
+Я Марка, твій супутник! #speaker:marka
+-> finish
+
 === not_for_me ===
 // лист віддали не тому адресату
 Це не мені. #speaker:addressee

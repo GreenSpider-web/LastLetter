@@ -371,7 +371,7 @@ MonoBehaviour:
       portrait: {fileID: 6746612132835300311, guid: f2ad714b1fa03c348ab73dd83a67be76, type: 3}
   - name: "\u041C\u0430\u0440\u043A\u0430"
     id: marka
-    portrait: {fileID: 0}
+    portrait: {fileID: -2266317128062261159, guid: 017aaa304b2b5444ba79d465cf35c6aa, type: 3}
     onLeft: 0
     nameColor: {r: 0.95, g: 0.85, b: 0.6, a: 1}
     emotions: []

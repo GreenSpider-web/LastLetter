@@ -38,6 +38,8 @@ public class PauseMenu : MonoBehaviour
     {
         if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame) return;
 
+        if (UI_Map.IsOpen) { UI_Map.Close(); return; }   // [NEW] Esc спершу закриває мапу
+
         // Esc: спершу закрити вкладене вікно, потім паузу; якщо паузи немає — поставити
         if (howToPlayPanel.activeSelf || settingsPanel.activeSelf)
         {
