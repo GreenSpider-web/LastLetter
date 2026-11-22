@@ -1,3 +1,4 @@
+using System;                    // [NEW] Action
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,7 @@ public class SaveSystem : MonoBehaviour
 
     private static string SavePath => Path.Combine(Application.persistentDataPath, "save.json");
     public static bool HasSave => File.Exists(SavePath);
+    public static event Action OnSaved;     // [NEW] HUD показує значок збереження
 
     private bool InGame => SceneManager.GetActiveScene().name != menuScene;
 
@@ -80,6 +82,7 @@ public class SaveSystem : MonoBehaviour
 
         File.WriteAllText(SavePath, JsonUtility.ToJson(data, true));
         Debug.Log("Автозбереження: " + data.scene);
+        OnSaved?.Invoke();                  // [NEW]
     }
 
     // Кнопка «Продовжити»

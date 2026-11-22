@@ -376,7 +376,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7713055194820145501}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d8d1a996fff136489654600d3225391, type: 3}
+  m_Script: {fileID: 11500000, guid: b4c1e8a2d7f34a5c9e01f2a3b4c5d6e7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
-  knot: marka_hello
+  m_EditorClassIdentifier: Assembly-CSharp::HintSystem
+  data: {fileID: 11400000, guid: d6e3a1c4f9b54c7e9a23b4c5d6e7f809, type: 2}
+  idleKnot: marka_hello

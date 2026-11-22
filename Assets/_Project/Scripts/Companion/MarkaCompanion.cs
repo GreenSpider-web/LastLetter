@@ -31,6 +31,7 @@ public class MarkaCompanion : MonoBehaviour
     private Vector3 followPos;          // плавна точка за спиною (без дуги й погойдування)
     private Vector3 velocity;           // потрібна для SmoothDamp
     private float baseScale;            // масштаб, при якому Марка має ширину width
+    private SpriteRenderer glow;        // [NEW] світіння за Маркою, коли підказка готова (HintSystem)
 
     private void Awake()
     {
@@ -78,6 +79,36 @@ public class MarkaCompanion : MonoBehaviour
 
         // дивиться туди ж, куди Ліля
         spriteRenderer.flipX = spriteFacesLeft ? !lilia.flipX : lilia.flipX;
+    }
+
+    // [NEW] Світіння «підказка готова»: м'яка пляма за журавликом, що повільно «дихає»
+    public void SetGlow(bool on, Color color, float period)
+    {
+        if (glow == null)
+        {
+            if (!on || spriteRenderer == null) return;
+            glow = CreateGlow();
+        }
+
+        glow.enabled = on;
+        if (!on) return;
+
+        float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * 2f * Mathf.PI / period);   // 0…1
+        glow.color = new Color(color.r, color.g, color.b, color.a * Mathf.Lerp(0.35f, 1f, pulse));
+    }
+
+    // [NEW] Дочірній спрайт-пляма (малюється кодом, поки немає арту), трохи більший за Марку
+    private SpriteRenderer CreateGlow()
+    {
+        var go = new GameObject("Glow");
+        go.transform.SetParent(transform, false);
+        go.transform.localScale = Vector3.one * spriteRenderer.sprite.bounds.size.x * 1.3f;
+
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = UIBuild.DrawSprite(64, (x, y) => new Color(1f, 1f, 1f, Mathf.Clamp01(1f - Mathf.Sqrt(x * x + y * y))));
+        sr.sortingLayerID = spriteRenderer.sortingLayerID;
+        sr.sortingOrder = spriteRenderer.sortingOrder - 1;   // за журавликом
+        return sr;
     }
 
     // Точка за спиною Лілі трохи вище середини голови
