@@ -37,6 +37,7 @@ public class SteamKettle : MonoBehaviour, IItemReceiver
         if (alreadyRead)
         {
             if (InteractionText.Instance != null) InteractionText.Instance.Show(alreadyOpenText);
+            UI_LetterRead.Show(letter);   // [NEW] розпечатаний лист можна перечитати (Втручання не росте)
             return true;
         }
 

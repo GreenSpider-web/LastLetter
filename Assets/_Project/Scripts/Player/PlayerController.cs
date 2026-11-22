@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public bool IsMoving => isMoving;
+    public SpriteRenderer Sprite => spriteRenderer;      // [NEW] Марка бере звідси зріст Лілі і куди вона дивиться
 
     public void Stop()
     {

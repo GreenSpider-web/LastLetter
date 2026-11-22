@@ -37,6 +37,10 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string useSuccessText = "Вийшло.";
     [SerializeField] private string wrongItemText = "Так не вийде.";
 
+    [Header("Відстань")]                                                       // [NEW]
+    [Tooltip("Ліля не підходить, взаємодія з будь-якої відстані (Марка завжди поруч)")]   // [NEW]
+    [SerializeField] private bool alwaysInReach = false;                       // [NEW]
+
     [Header("Події")]
     public UnityEvent onInteract;       // викликається, коли Ліля дійшла і взаємодіяла
     public UnityEvent onItemUsed;       // викликається, коли на об'єкті використали потрібний предмет
@@ -46,6 +50,7 @@ public class Interactable : MonoBehaviour
     public InteractionType Type => type;
     public ItemData Item => item;
     public string UseText => useText;
+    public bool AlwaysInReach => alwaysInReach;                                // [NEW]
 
     private Collider2D col;
 
