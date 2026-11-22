@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 // HUD (GDD → «Індикатори стану»):
 //  1. Адреса — верхній лівий кут: «Адреса: …» або «Повернись на Пошту»;
-//  2. Кнопки «Сумка» і «Мапа» — нижній лівий кут (Tab і M роблять те саме);
+//  2. Мапа — маленька кнопка-значок у верхньому правому куті або клавіша M; сумка — Tab;   // [CHANGED]
 //  5. Сповіщення вгорі по центру — «Новий предмет: Свічка» (2 с); інші системи можуть викликати UI_HUD.Notify(...);
 //  7. Значок автозбереження — штемпель, що крутиться, нижній правий кут, 1.5 с після кожного збереження.
 // Підпис під курсором (4) малює InteractionText, світіння Марки (3) — HintSystem.
@@ -133,12 +133,6 @@ public class UI_HUD : MonoBehaviour
 
     private void ShowSaveIcon() => saveUntil = Time.unscaledTime + SaveIconSeconds;
 
-    private void ToggleBag()
-    {
-        UI_Bag bag = FindAnyObjectByType<UI_Bag>();
-        if (bag != null) bag.Toggle();
-    }
-
     private void ToggleMap()
     {
         if (UI_Map.IsOpen) UI_Map.Close();
@@ -160,9 +154,12 @@ public class UI_HUD : MonoBehaviour
         addressText.rectTransform.offsetMin = new Vector2(20f, 0f);
         addressText.rectTransform.offsetMax = new Vector2(-20f, 0f);
 
-        // 2. Кнопки
-        UIBuild.MakeButton("Btn_Bag", root.transform, Vector2.zero, new Vector2(30f, 30f), new Vector2(180f, 64f), "Сумка", ToggleBag);
-        UIBuild.MakeButton("Btn_Map", root.transform, Vector2.zero, new Vector2(230f, 30f), new Vector2(180f, 64f), "Мапа", ToggleMap);
+        // 2. Кнопка мапи — значок у верхньому правому куті (кнопки «Сумка» і «Мапа» прибрали, сумка — Tab)   // [CHANGED]
+        Button mapButton = UIBuild.MakeButton("Btn_Map", root.transform, Vector2.one, new Vector2(-30f, -30f), new Vector2(96f, 96f), "", ToggleMap);   // [NEW]
+        Sprite mapIcon = Resources.Load<Sprite>("UI/icon_map");                                            // [NEW] Assets/_Project/Resources/UI/icon_map.png
+        if (mapIcon != null) { Image img = mapButton.GetComponent<Image>(); img.sprite = mapIcon; img.color = Color.white; }   // [NEW]
+        else mapButton.GetComponentInChildren<Text>().text = "M";                                           // [NEW] якщо значка нема — буква
+        UIBuild.Label("Key", mapButton.transform, 22, FontStyle.Bold, TextAnchor.LowerRight, new Color(0.95f, 0.9f, 0.8f)).text = "M ";   // [NEW] підказка клавіші
 
         // 5. Сповіщення
         Image noticeBg = UIBuild.Panel("Notice", root.transform, new Vector2(0.5f, 1f), new Vector2(0f, -30f),

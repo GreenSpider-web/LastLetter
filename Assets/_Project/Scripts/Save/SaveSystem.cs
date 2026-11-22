@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // Автозбереження в один слот (JSON у Application.persistentDataPath/save.json).
-// Зберігає, коли Ліля заходить у ділянку, змінюється прапорець / Втручання / сумка, і при виході з гри.
+// Зберігає, коли Ліля заходить у ділянку (нова сцена), з меню паузи і при виході з гри.   // [CHANGED]
 // «Продовжити» — відновлює стан і завантажує ту саму ділянку; «Нова гра» — стирає збереження.
 public class SaveSystem : MonoBehaviour
 {
@@ -32,16 +32,9 @@ public class SaveSystem : MonoBehaviour
 
     private void Start()
     {
-        // GameState і InventoryManager теж живуть між сценами, тож підписуємось один раз
-        if (GameState.Instance != null)
-        {
-            GameState.Instance.OnFlagChanged += (name, value) => MarkDirty();
-            GameState.Instance.OnInterventionChanged += value => MarkDirty();
-        }
-        if (InventoryManager.Instance != null)
-            InventoryManager.Instance.OnChanged += MarkDirty;
-        if (LetterManager.Instance != null)                                     // [NEW]
-            LetterManager.Instance.OnLetterDelivered += letter => MarkDirty();  // [NEW]
+        // [CHANGED] Раніше зберігали після кожного прапорця / предмета — значок «Збережено» блимав кожні кілька секунд.
+        // Тепер — лише коли завантажилась нова ділянка (збереження в кінці кадру, коли Ліля вже на місці).
+        SceneManager.sceneLoaded += (scene, mode) => MarkDirty();   // [NEW]
     }
 
     private void MarkDirty()
@@ -49,7 +42,7 @@ public class SaveSystem : MonoBehaviour
         if (!applying) dirty = true;
     }
 
-    // Кілька змін за кадр (напр. поєднання: −2 предмети, +1) — одне збереження
+    // Зберегти в кінці кадру (після того як SceneLoader поставив Лілю на місце)   // [CHANGED]
     private void LateUpdate()
     {
         if (!dirty) return;

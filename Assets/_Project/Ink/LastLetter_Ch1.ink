@@ -84,6 +84,25 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
     Ходімо. #speaker:lilia
 - -> finish
 
+=== postmaster_letter1 ===
+// Площа Пошти (головна сцена): Ліля підходить, коротко говорить і отримує перший лист.
+// Довге знайомство — у вступі (postmaster_intro, сцена Sandbox_Intro), тут його не повторюємо.
+{ postmaster_letter1 > 1:
+    Лист сам себе не доставить, дитино. #speaker:postmaster #emotion:neutral
+    -> finish
+}
+А, листоноша. Виспалась? #speaker:postmaster #emotion:smile
++ [Готова працювати.]
+    Готова працювати. #speaker:lilia #emotion:neutral
+    От і славно. #speaker:postmaster #emotion:smile
++ [У мене ж немає вибору, так?]
+    У мене ж немає вибору, так? #speaker:lilia #emotion:sad
+    Вибір є завжди. Просто не всі його помічають. #speaker:postmaster #emotion:neutral
+- Тримай. «Тому, хто ловить там, де немає води». #speaker:postmaster #emotion:neutral #give_item:item_letter_fisher
+Запечатаним. Пам'ятаєш? #speaker:postmaster #emotion:angry
+Пам'ятаю. #speaker:lilia #emotion:scared
+-> finish
+
 === postmaster_talk ===
 // повторна розмова з Поштмейстером, коли завдання ще не виконано
 Лист сам себе не доставить, дитино. #speaker:postmaster
