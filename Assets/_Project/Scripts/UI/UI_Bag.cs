@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -8,9 +9,9 @@ using UnityEngine.UI;
 public class UI_Bag : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
-    [SerializeField] private Button[] slots;                // 12 кнопок; у кожної діти Icon (Image) і Label (Text)
-    [SerializeField] private Color slotColor = new Color(0.25f, 0.22f, 0.2f, 0.9f);
-    [SerializeField] private Color selectedColor = new Color(0.75f, 0.6f, 0.3f, 1f);
+    [SerializeField] private Button[] slots;                // 12 кнопок; у кожної діти Icon (Image) і Label (TMP_Text)
+    [SerializeField] private Color slotColor = Color.white;                       // колір уже в спрайті ui_slot
+    [SerializeField] private Color selectedColor = new Color(1f, 0.82f, 0.45f, 1f);  // вибраний — золотавий
     [SerializeField] private AudioClip openSound;           // [NEW] sfx_paper_bag
 
     private InventoryManager inv;
@@ -67,7 +68,7 @@ public class UI_Bag : MonoBehaviour
             ItemData item = i < inv.Items.Count ? inv.Items[i] : null;
 
             var icon = slots[i].transform.Find("Icon").GetComponent<Image>();
-            var label = slots[i].transform.Find("Label").GetComponent<Text>();
+            var label = slots[i].transform.Find("Label").GetComponent<TMP_Text>();
 
             icon.sprite = item != null ? item.icon : null;
             icon.enabled = item != null && item.icon != null;

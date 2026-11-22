@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Тимчасовий текст для задачі 12: назва під курсором і опис / репліка внизу екрана.
+// Тимчасовий текст для задачі 12: назва під курсором і опис / репліка вгорі екрана
+// (вгорі — щоб не перекривати вікно діалогу внизу).
 // Справжній HUD («підпис під курсором», сповіщення) — задача 25, тоді цей скрипт можна прибрати.
 public class InteractionText : MonoBehaviour
 {
@@ -51,10 +52,10 @@ public class InteractionText : MonoBehaviour
             GUI.Label(r, hoverName, hoverStyle);
         }
 
-        // опис / репліка внизу
+        // опис / репліка вгорі
         if (!string.IsNullOrEmpty(message) && Time.time < messageUntil)
         {
-            var box = new Rect(Screen.width * 0.15f, Screen.height - 110, Screen.width * 0.7f, 70);
+            var box = new Rect(Screen.width * 0.15f, 30, Screen.width * 0.7f, 70);
             GUI.color = new Color(0f, 0f, 0f, 0.55f);
             GUI.DrawTexture(box, Texture2D.whiteTexture);
             GUI.color = Color.white;

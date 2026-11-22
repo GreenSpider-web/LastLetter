@@ -40,6 +40,7 @@ public class InkDialogueView : MonoBehaviour
     [SerializeField] InkFile inkFile;
     [SerializeField] string startKnot = "";        // з якого вузла почати (порожньо — з початку файлу)
     [SerializeField] bool showBothPortraits = false;   // показувати обох: хто мовчить — притемнений
+    [SerializeField] string nextScene = "";        // після кінця діалогу клік — перейти в цю сцену (порожньо — лишитися)
     [SerializeField, HideInInspector] string inkAssetPath;   // запасний шлях, щоб у редакторі знайти .ink, якщо поле злетить
     [SerializeField] bool showPlayerAnswer = false; // показувати вибрану відповідь окремою реплікою
     [SerializeField] string playerName = "Ліля";   // так підписуються відповіді гравця
@@ -58,6 +59,7 @@ public class InkDialogueView : MonoBehaviour
     Story story;
     string speakerName = "";
     string lineText = "";
+    bool leaving;               // уже переходимо в наступну сцену
     bool narrator;              // рядок оповідача (#speaker:narrator) — курсивом
     Sprite currentSprite;       // портрет того, хто говорить
     Sprite leftSprite, rightSprite;   // останні портрети зліва і справа (для showBothPortraits)
@@ -71,13 +73,14 @@ public class InkDialogueView : MonoBehaviour
 
 #if UNITY_EDITOR
     // Викликає скрипт DeathDialogueSetup, коли збирає сцену
-    public void Setup(InkFile ink, List<Speaker> list, string knot = "", bool bothPortraits = false)
+    public void Setup(InkFile ink, List<Speaker> list, string knot = "", bool bothPortraits = false, string next = "")
     {
         inkFile = ink;
         inkAssetPath = UnityEditor.AssetDatabase.GetAssetPath(ink);
         speakers = list;
         startKnot = knot;
         showBothPortraits = bothPortraits;
+        nextScene = next;
     }
 #endif
 
@@ -193,6 +196,11 @@ public class InkDialogueView : MonoBehaviour
     {
         if (IsTyping) shownChars = lineText.Length;   // перший клік — дописати рядок
         else if (story.canContinue) NextLine();       // другий — наступний рядок
+        else if (!HasChoices && !string.IsNullOrEmpty(nextScene))
+        {
+            leaving = true;                           // сховати панель, поки темніє екран
+            SceneLoader.Load(nextScene);              // діалог скінчився — у гру (затемнення 0.5 с)
+        }
     }
 
     void Update()
@@ -202,7 +210,7 @@ public class InkDialogueView : MonoBehaviour
 
     void OnGUI()
     {
-        if (story == null) return;
+        if (story == null || leaving) return;
         CreateStyles();
 
         float margin = 30f;
@@ -244,7 +252,7 @@ public class InkDialogueView : MonoBehaviour
 
         // 5) підказка внизу праворуч
         if (!IsTyping && !showChoices)
-            GUI.Label(new Rect(box.x, box.y, box.width - 24, box.height - 12), ended ? "Кінець" : "▼", hintStyle);
+            GUI.Label(new Rect(box.x, box.y, box.width - 24, box.height - 12), ended ? (string.IsNullOrEmpty(nextScene) ? "Кінець" : "Далі ▼") : "▼", hintStyle);
 
         // 6) варіанти відповіді — над панеллю зліва
         if (showChoices)

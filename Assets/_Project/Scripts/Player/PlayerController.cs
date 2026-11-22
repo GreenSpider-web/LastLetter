@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
         // клік по кнопці HUD не має рухати Лілю
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
+        // після переходу з меню камера меню могла вже зникнути — беремо камеру поточної сцени
+        if (cam == null || !cam.isActiveAndEnabled) cam = Camera.main;
+
         Vector2 click = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         // клік по предмету обробляє PlayerInteractor (задача 12)

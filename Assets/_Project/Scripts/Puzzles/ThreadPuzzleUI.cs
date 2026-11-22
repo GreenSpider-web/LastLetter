@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ public class ThreadPuzzleUI : MonoBehaviour
 {
     [SerializeField] private GameObject window;
     [SerializeField] private RectTransform board;      // сюди будуються плитки
-    [SerializeField] private Text title;
+    [SerializeField] private TMP_Text title;
     [SerializeField] private Button closeButton;
 
     [Header("Розміри (GDD: плитки 128×128)")]
