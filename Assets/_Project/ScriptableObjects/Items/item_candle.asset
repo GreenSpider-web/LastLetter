@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: "\u0421\u0432\u0456\u0447\u043A\u0430"
   description: "\u041D\u0435\u0434\u043E\u0433\u0430\u0440\u043E\u043A \u0432\u043E\u0441\u043A\u043E\u0432\u043E\u0457
     \u0441\u0432\u0456\u0447\u043A\u0438."
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 498e820d51751254abdc6a0d6376bec2, type: 3}

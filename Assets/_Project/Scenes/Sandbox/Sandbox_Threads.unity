@@ -207,6 +207,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: tileSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ab57280be66cab44fb8c51b0dd4eeeec, type: 3}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: tileColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: tileColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: tileColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: cornerSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fc2513098c0b60a4ba1701ed9ce39b19, type: 3}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: needleSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f1e5b950303d05c41bc3a265044f7b38, type: 3}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: spoolRedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a2e1ac54179f52488880f588d589149, type: 3}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: straightSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b1572eebe7a6df7488e4d28ae170cc5e, type: 3}
+    - target: {fileID: 2410096806511898484, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
+      propertyPath: spoolWhiteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2ebe650c5de3ad247b74dc732991977c, type: 3}
     - target: {fileID: 5813960106674335529, guid: 26b6566f98509d34bb2bb9ff485ff52f, type: 3}
       propertyPath: m_Name
       value: UI_ThreadPuzzle
@@ -289,6 +325,7 @@ MonoBehaviour:
   consumeItem: 1
   useSuccessText: "\u0412\u0438\u0439\u0448\u043B\u043E."
   wrongItemText: "\u0422\u0430\u043A \u043D\u0435 \u0432\u0438\u0439\u0434\u0435."
+  alwaysInReach: 0
   onInteract:
     m_PersistentCalls:
       m_Calls: []
@@ -477,6 +514,7 @@ MonoBehaviour:
   consumeItem: 1
   useSuccessText: "\u0412\u0438\u0439\u0448\u043B\u043E."
   wrongItemText: "\u0422\u0430\u043A \u043D\u0435 \u0432\u0438\u0439\u0434\u0435."
+  alwaysInReach: 0
   onInteract:
     m_PersistentCalls:
       m_Calls: []
