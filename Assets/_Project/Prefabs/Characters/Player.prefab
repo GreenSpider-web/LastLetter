@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3235743177559386890}
   - component: {fileID: 4668280300530654106}
   - component: {fileID: 3510970859665264131}
+  - component: {fileID: 4372473178404001917}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3207769101069227722, guid: d482c8351d463574e8729ca77e7099b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3bb6e5ecf147354881019348a05af6e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4289745916032425694}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 864719750df2f6d4da6e9d8c3cf7015b, type: 3}
   m_Name: 
@@ -110,6 +111,28 @@ MonoBehaviour:
   tiltDegrees: 3
   squash: 0.04
   blendSpeed: 8
+--- !u!95 &4372473178404001917
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4289745916032425694}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 74111a64e9319364b902cb6956dfb00c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4755987843892438927
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +183,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 0f583a106ff3e6448b2aeef118bf1df7, type: 2}
   walkArea: {fileID: 0}
   spriteRenderer: {fileID: 4668280300530654106}
-  animator: {fileID: 0}
+  animator: {fileID: 4372473178404001917}
   footstepSound: {fileID: 8300000, guid: abdf4f7ec3cf36641bf97ae00b6446cc, type: 3}
   stepInterval: 0.4
 --- !u!114 &5337032054098370252
@@ -331,8 +354,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 12.124566, y: 8.559999}
+    newSize: {x: 12.12, y: 8.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -352,7 +375,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactable
   displayName: "\u041C\u0430\u0440\u043A\u0430"
-  description: "\u041F\u0430\u043F\u0435\u0440\u043E\u0432\u0438\u0439 \u0436\u0443\u0440\u0430\u0432\u043B\u0438\u043A \u0437\u0456 \u0441\u0442\u0430\u0440\u043E\u0457 \u043F\u043E\u0448\u0442\u043E\u0432\u043E\u0457 \u043C\u0430\u0440\u043A\u0438. \u0414\u0438\u0432\u0438\u0442\u044C\u0441\u044F \u0441\u0435\u0440\u0434\u0438\u0442\u043E."
+  description: "\u041F\u0430\u043F\u0435\u0440\u043E\u0432\u0438\u0439 \u0436\u0443\u0440\u0430\u0432\u043B\u0438\u043A
+    \u0437\u0456 \u0441\u0442\u0430\u0440\u043E\u0457 \u043F\u043E\u0448\u0442\u043E\u0432\u043E\u0457
+    \u043C\u0430\u0440\u043A\u0438. \u0414\u0438\u0432\u0438\u0442\u044C\u0441\u044F
+    \u0441\u0435\u0440\u0434\u0438\u0442\u043E."
   type: 3
   item: {fileID: 0}
   useText: "\u041D\u0456\u0447\u043E\u0433\u043E \u043D\u0435 \u0432\u0456\u0434\u0431\u0443\u0432\u0430\u0454\u0442\u044C\u0441\u044F."
