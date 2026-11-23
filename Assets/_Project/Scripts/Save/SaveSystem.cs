@@ -11,8 +11,8 @@ public class SaveSystem : MonoBehaviour
     public static SaveSystem Instance { get; private set; }
 
     [SerializeField] private string menuScene = "MainMenu";
-    [Tooltip("Перша сцена нової гри. Коли буде задача 17 — L1_PostSquare")]
-    [SerializeField] private string firstScene = "Sandbox_Player";
+    [Tooltip("Перша сцена нової гри: вступ, після нього вступ сам переходить у Sandbox_Player")]   // [CHANGED]
+    [SerializeField] private string firstScene = "Sandbox_Intro";                                     // [CHANGED]
 
     private bool dirty;         // щось змінилось — зберегти в кінці кадру
     private bool applying;      // зараз відновлюємо збереження — не зберігати посередині

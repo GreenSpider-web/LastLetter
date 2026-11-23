@@ -15,4 +15,4 @@ MonoBehaviour:
   id: item_test_cube
   displayName: "\u041A\u0443\u0431\u0438\u043A"
   description: "\u0422\u0435\u0441\u0442\u043E\u0432\u0438\u0439 \u043F\u0440\u0435\u0434\u043C\u0435\u0442."
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b74e5a6cf9ce0e547b98188633566b0f, type: 3}

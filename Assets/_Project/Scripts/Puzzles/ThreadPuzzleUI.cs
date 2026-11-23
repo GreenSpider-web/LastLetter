@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 // Вікно пазла ниток (задача 23): сітка з ThreadPuzzleData, клік повертає плитку на 90°,
 // нитки від голки світяться своїм кольором, після розв'язку нитки падають і вікно закривається.
-// Поки немає малюнків плиток (задача 24), нитки малюються простими смужками з Image.
+// Нитки — малюнки Софії (пряма, кут; Т і хрест складено з прямої), смужки з Image лишаються під ними
+// для підрахунку кольору. Без спрайтів (поля порожні) видно лише смужки, як раніше.   // [CHANGED]
 // ПКМ або кнопка «Закрити» — вийти, не розв'язавши (повороти зберігаються до наступного відкриття).
 public class ThreadPuzzleUI : MonoBehaviour
 {
@@ -28,6 +29,14 @@ public class ThreadPuzzleUI : MonoBehaviour
     [SerializeField] private Color whiteThread = new Color(0.95f, 0.94f, 0.9f);
     [SerializeField] private Color hintColor = new Color(0.85f, 0.7f, 0.2f);
 
+    [Header("Спрайти (задача 24); порожньо — прості смужки")]   // [NEW]
+    [SerializeField] private Sprite tileSprite;         // [NEW] плитка-папір
+    [SerializeField] private Sprite straightSprite;     // [NEW] пряма нитка, лежить горизонтально (ліво — право)
+    [SerializeField] private Sprite cornerSprite;       // [NEW] кут, з'єднує ліво — верх
+    [SerializeField] private Sprite needleSprite;       // [NEW] голка, вушко праворуч
+    [SerializeField] private Sprite spoolRedSprite;     // [NEW]
+    [SerializeField] private Sprite spoolWhiteSprite;   // [NEW]
+
     [Header("Звук і падіння")]
     [SerializeField] private AudioClip rotateSound;     // шурхіт ниток (коли з'явиться)
     [SerializeField] private AudioClip solvedSound;
@@ -41,6 +50,7 @@ public class ThreadPuzzleUI : MonoBehaviour
         public RectTransform content;       // його повертаємо разом із нитками
         public Image[] segments = new Image[4];   // смужка до кожної сторони (до повороту); null — немає
         public Image knob;                  // кружечок у центрі
+        public Image[] art = new Image[4];  // [NEW] малюнок нитки; бере колір смужки тієї самої сторони
     }
 
     private ThreadPuzzleData data;
@@ -52,6 +62,7 @@ public class ThreadPuzzleUI : MonoBehaviour
     private PlayerController player;
 
     public bool IsOpen => window.activeSelf;
+    private bool HasArt => straightSprite != null && cornerSprite != null;   // [NEW]
 
     private void Awake()
     {
@@ -113,8 +124,16 @@ public class ThreadPuzzleUI : MonoBehaviour
         foreach (ThreadLine line in data.Lines)
         {
             Color c = ColorOf(line.color);
-            MakeMarker("Needle", line.needleCell, (int)line.needleSide, new Vector2(threadWidth, 44f), c);
-            spools.Add(MakeMarker("Spool", line.spoolCell, (int)line.spoolSide, new Vector2(40f, 40f), Dim(c)));
+            if (needleSprite != null)   // [NEW] голка вушком до сітки
+                MakeSpriteMarker("Needle", line.needleCell, (int)line.needleSide, needleSprite, 84f, -90f * ((int)line.needleSide - 3));
+            else
+                MakeMarker("Needle", line.needleCell, (int)line.needleSide, new Vector2(threadWidth, 44f), c);
+
+            Sprite spool = line.color == ThreadColor.Red ? spoolRedSprite : spoolWhiteSprite;   // [NEW]
+            if (spool != null)
+                spools.Add(MakeSpriteMarker("Spool", line.spoolCell, (int)line.spoolSide, spool, 56f, 0f));   // [NEW]
+            else
+                spools.Add(MakeMarker("Spool", line.spoolCell, (int)line.spoolSide, new Vector2(40f, 40f), Dim(c)));
         }
     }
 
@@ -129,6 +148,7 @@ public class ThreadPuzzleUI : MonoBehaviour
         rt.sizeDelta = new Vector2(cellSize - 4f, cellSize - 4f);
         rt.anchoredPosition = CellCenter(x, y);
         view.background = rt.gameObject.AddComponent<Image>();
+        view.background.sprite = tileSprite;   // [NEW] null — просто кольоровий квадрат
         view.background.color = tileColor;
 
         if (tile.type != ThreadTileType.Empty)
@@ -146,8 +166,8 @@ public class ThreadPuzzleUI : MonoBehaviour
         for (int side = 0; side < 4; side++)
             if ((mask >> side & 1) == 1) view.segments[side] = MakeSegment(view.content, side);
 
-        // у хреста нитки не з'єднуються — кружечка в центрі немає
-        if (tile.type != ThreadTileType.Empty && tile.type != ThreadTileType.Cross)
+        // у хреста нитки не з'єднуються — кружечка в центрі немає; з малюнками кружечок не потрібен
+        if (tile.type != ThreadTileType.Empty && tile.type != ThreadTileType.Cross && !HasArt)   // [CHANGED]
         {
             RectTransform knob = NewRect("Knob", view.content);
             knob.sizeDelta = new Vector2(threadWidth * 1.6f, threadWidth * 1.6f);
@@ -155,8 +175,80 @@ public class ThreadPuzzleUI : MonoBehaviour
             view.knob.raycastTarget = false;
         }
 
+        if (HasArt && tile.type != ThreadTileType.Empty) BuildArt(view, tile.type);   // [NEW]
+
         ApplyRotation(view, rotations[index]);
         return view;
+    }
+
+    // [NEW] Нитка з малюнків у «базовому» положенні типу (як BaseMask у ThreadPuzzleSolver), крутиться разом із content.
+    // Т = вертикальна пряма + права половина прямої; хрест = дві прямі (кожна світиться окремо).
+    // Смужки лишаються невидимими: Refresh фарбує їх, а малюнок бере колір своєї сторони
+    private void BuildArt(TileView view, ThreadTileType type)
+    {
+        switch (type)
+        {
+            case ThreadTileType.Straight:
+                view.art[0] = MakeStraight(view.content, 90f, false);   // верх — низ
+                break;
+            case ThreadTileType.Corner:
+                view.art[0] = MakeCorner(view.content);                  // верх — право
+                break;
+            case ThreadTileType.Tee:
+                view.art[1] = MakeStraight(view.content, 0f, true);     // від центру вправо (під вертикальною)
+                view.art[0] = MakeStraight(view.content, 90f, false);   // верх — низ
+                break;
+            case ThreadTileType.Cross:
+                view.art[1] = MakeStraight(view.content, 0f, false);    // ліво — право
+                view.art[0] = MakeStraight(view.content, 90f, false);   // верх — низ, зверху
+                break;
+        }
+        foreach (Image seg in view.segments) if (seg != null) seg.enabled = false;
+    }
+
+    // [NEW] Пряма на всю плитку; angle 0 — горизонтально, 90 — вертикально. rightHalf — лише від центру вправо
+    private Image MakeStraight(RectTransform parent, float angle, bool rightHalf)
+    {
+        float tile = cellSize - 4f;
+        RectTransform rt = NewRect("ThreadArt", parent);
+        rt.sizeDelta = new Vector2(tile, tile * straightSprite.rect.height / straightSprite.rect.width);   // товщина — як на малюнку
+        rt.localEulerAngles = new Vector3(0f, 0f, angle);
+
+        var img = rt.gameObject.AddComponent<Image>();
+        img.sprite = straightSprite;
+        img.raycastTarget = false;
+        if (rightHalf)
+        {
+            img.type = Image.Type.Filled;
+            img.fillMethod = Image.FillMethod.Horizontal;
+            img.fillOrigin = (int)Image.OriginHorizontal.Right;
+            img.fillAmount = 0.5f;
+        }
+        return img;
+    }
+
+    // [NEW] Кут: малюнок з'єднує ліво — верх, тож повертаємо на 90° за годинниковою → верх — право
+    private Image MakeCorner(RectTransform parent)
+    {
+        float tile = cellSize - 4f;
+        RectTransform turn = NewRect("ThreadArtTurn", parent);
+        turn.sizeDelta = parent.sizeDelta;
+        turn.localEulerAngles = new Vector3(0f, 0f, -90f);
+
+        // масштаб той самий, що в прямої: пряма на малюнку = ширина плитки
+        float width = tile * cornerSprite.rect.width / straightSprite.rect.width;
+        float height = tile * cornerSprite.rect.height / straightSprite.rect.width;
+        float halfThick = width - tile * 0.5f;           // малюнок виходить за центр на півтовщини нитки
+
+        RectTransform rt = NewRect("ThreadArt", turn);
+        rt.sizeDelta = new Vector2(width, height);
+        rt.pivot = new Vector2(1f, 0f);                   // правий нижній кут малюнка...
+        rt.anchoredPosition = new Vector2(halfThick, -halfThick);   // ...трохи за центром плитки
+
+        var img = rt.gameObject.AddComponent<Image>();
+        img.sprite = cornerSprite;
+        img.raycastTarget = false;
+        return img;
     }
 
     // Смужка від центру до сторони
@@ -186,6 +278,23 @@ public class ThreadPuzzleUI : MonoBehaviour
 
         var img = rt.gameObject.AddComponent<Image>();
         img.color = color;
+        img.raycastTarget = false;
+        return img;
+    }
+
+    // [NEW] Голка або котушка-малюнок за краєм сітки; size — більша сторона малюнка
+    private Image MakeSpriteMarker(string name, Vector2Int cell, int side, Sprite sprite, float size, float angle)
+    {
+        RectTransform rt = NewRect(name, board);
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
+        Vector2Int step = ThreadPuzzleSolver.Step(side);
+        rt.anchoredPosition = CellCenter(cell.x, cell.y) + new Vector2(step.x, -step.y) * (cellSize * 0.5f + size * 0.5f + 4f);
+        float aspect = sprite.rect.width / sprite.rect.height;
+        rt.sizeDelta = aspect >= 1f ? new Vector2(size, size / aspect) : new Vector2(size * aspect, size);
+        rt.localEulerAngles = new Vector3(0f, 0f, angle);
+
+        var img = rt.gameObject.AddComponent<Image>();
+        img.sprite = sprite;
         img.raycastTarget = false;
         return img;
     }
@@ -247,8 +356,15 @@ public class ThreadPuzzleUI : MonoBehaviour
                 if (view.knob != null) view.knob.color = c;
             }
 
-            spools[line].color = result.reachedSpool[line] ? c : Dim(c);   // котушка яскравішає, коли нитка дійшла
+            Color spoolColor = spoolRedSprite != null ? Color.white : c;                         // [NEW] малюнок котушки вже кольоровий
+            spools[line].color = result.reachedSpool[line] ? spoolColor : Dim(spoolColor);       // [CHANGED] котушка яскравішає, коли нитка дійшла
         }
+
+        // [NEW] малюнок нитки бере колір смужки своєї сторони
+        foreach (TileView view in tiles)
+            for (int side = 0; side < 4; side++)
+                if (view.art[side] != null && view.segments[side] != null) view.art[side].color = view.segments[side].color;
+
         return result.solved;
     }
 
@@ -263,6 +379,7 @@ public class ThreadPuzzleUI : MonoBehaviour
         foreach (TileView view in tiles)
         {
             foreach (Image seg in view.segments) if (seg != null) falling.Add(seg);
+            foreach (Image art in view.art) if (art != null) falling.Add(art);   // [NEW]
             if (view.knob != null) falling.Add(view.knob);
         }
 

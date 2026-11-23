@@ -168,7 +168,7 @@ public static class Task17_28TailorLevelSetup
         // арка на фоні background1 — x ≈ 9.8
         Door("Door_TailorStreet", "Арка на Вулицю Ниток", "Кована хвіртка в кам'яній арці.",
              new Vector2(9.8f, -0.2f), new Vector2(2.2f, 3.6f),
-             "L1_TailorStreet", new Vector2(3f, -3.5f), "prologue_done", "Арка зачинена. Спершу — перший лист.");
+             "L1_TailorStreet", new Vector2(3f, -3.5f), "arch_open", "Я не знаю, що там. Боюсь туди йти.");   // [CHANGED] відчиняє Поштмейстер (arch_open)
         EditorSceneManager.SaveScene(scene);
     }
 
