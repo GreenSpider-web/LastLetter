@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Sandbox/Sandbox_Player.unity
     guid: 11c78629069fe5a4592a93ab35398fc0
+  - enabled: 1
+    path: Assets/_Project/Scenes/L1_TailorStreet.unity
+    guid: 10bbc2cf8963da248834224de70ea40e
+  - enabled: 1
+    path: Assets/_Project/Scenes/L1_TailorHouse.unity
+    guid: f766f4241cd52994080761d441ce80c1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
