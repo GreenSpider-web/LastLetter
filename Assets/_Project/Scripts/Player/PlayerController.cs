@@ -118,6 +118,9 @@ public class PlayerController : MonoBehaviour
         isMoving = true;
     }
 
+    // [NEW] Інша підлога: після пазла ниток прохід далі відкрито (FlagWalkArea)
+    public void SetWalkArea(Collider2D area) => walkArea = area;   // [NEW]
+
     public bool IsMoving => isMoving;
     public SpriteRenderer Sprite => spriteRenderer;      // [NEW] Марка бере звідси зріст Лілі і куди вона дивиться
 

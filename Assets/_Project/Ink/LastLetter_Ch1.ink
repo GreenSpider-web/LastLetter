@@ -87,6 +87,10 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
 === postmaster_letter1 ===
 // Площа Пошти (головна сцена): Ліля підходить, коротко говорить і отримує перший лист.
 // Довге знайомство — у вступі (postmaster_intro, сцена Sandbox_Intro), тут його не повторюємо.
+// Після пролога (Пантелеймон пішов) — другий лист і арка на Вулицю Ниток.
+{ prologue_done:
+    -> postmaster_letter2
+}
 { postmaster_letter1 > 1:
     Лист сам себе не доставить, дитино. #speaker:postmaster #emotion:neutral
     -> finish
@@ -157,6 +161,10 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
 
 === postmaster_letter2 ===
 // Ліля повертається на Пошту після пролога: другий лист і відчинена арка
+{ postmaster_letter2 > 1:
+    Вулиця Ниток — за аркою. Не барися. #speaker:postmaster
+    -> finish
+}
 { read_letter_fisher:
     Цікаві листи пишуть живі, правда? #speaker:postmaster
 }
@@ -219,6 +227,10 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
 
 === stefania_button ===
 // ШЛЯХ Б: Ліля підсуває Ґудзик під двері задньої кімнати (1-В, x = 15)
+{ not tailor_closed:
+    Ґудзик із сукні? Спершу треба, щоб було кому його підсунути. #speaker:marka
+    -> finish
+}
 (Тиша. Потім клацає замок.) #speaker:narrator
 Це… з її сукні. Вона таки зачепилася… #speaker:stefania
 Давай лист. #speaker:stefania
