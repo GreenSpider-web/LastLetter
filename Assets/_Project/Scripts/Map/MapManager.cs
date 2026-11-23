@@ -8,7 +8,8 @@ public enum DistrictState { Fog, Light, Gone }
 
 // Стани районів. Окремо їх не зберігаємо: вони обчислюються з того, що вже є в збереженні
 // (доставлені листи в LetterManager і прапорці GameState). Тому після «Продовжити» мапа одразу правильна.
-// У зрізі змінюються лише Міст і Вулиця Ниток; Сортувальна, Окопи й Пост на мосту — глава 2.
+// У зрізі змінюються Площа Пошти, Міст і Вулиця Ниток; Сортувальна, Окопи й Пост на мосту — глава 2.   // [CHANGED]
+// На мапі «Світло» = район пройдено (можна йти далі): він без туману й світло-жовтий (UI_Map).            // [NEW]
 public static class MapManager
 {
     public static readonly District[] All =
@@ -21,6 +22,8 @@ public static class MapManager
     {
         switch (district)
         {
+            case District.PostSquare:       // [NEW] Поштмейстер відправив в арку — далі Вулиця Ниток
+                return Flag("arch_open") ? DistrictState.Light : DistrictState.Fog;
             case District.Bridge:           // Пантелеймон прочитав лист і пішов
                 return IsDelivered("fisher") || Flag("prologue_done") ? DistrictState.Light : DistrictState.Fog;
             case District.TailorStreet:     // пані Стефанія пішла

@@ -22,6 +22,7 @@ VAR tailor_left = false
 
 // --- Допоміжні змінні: узгодити з Артемом і дописати в GDD ---
 VAR lantern_lit = false      // ліхтар біля мосту запалено (1-А, x = 26)
+VAR arch_open = false        // Поштмейстер відправив в арку — арка на Вулицю Ниток відчинена (GameState)
 VAR intervention = 0         // GameState.intervention; +1 за читання додає сама гра
 VAR test_mode = false        // true лише в тесті в Inky; Unity не змінює
 
@@ -163,12 +164,14 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
 // Ліля повертається на Пошту після пролога: другий лист і відчинена арка
 { postmaster_letter2 > 1:
     Вулиця Ниток — за аркою. Не барися. #speaker:postmaster
+    ~ arch_open = true
     -> finish
 }
 { read_letter_fisher:
     Цікаві листи пишуть живі, правда? #speaker:postmaster
 }
 Наступний. «Тій, що шиє для тієї, хто не прийде». Вулиця Ниток — за аркою. #speaker:postmaster #give_item:item_letter_tailor
+~ arch_open = true
 -> finish
 
 

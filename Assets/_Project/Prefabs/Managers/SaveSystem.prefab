@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveSystem
   menuScene: MainMenu
-  firstScene: Sandbox_Player
+  firstScene: Sandbox_Intro
