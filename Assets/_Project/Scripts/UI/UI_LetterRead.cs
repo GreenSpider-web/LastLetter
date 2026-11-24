@@ -109,16 +109,19 @@ public class UI_LetterRead : MonoBehaviour
         Stretch((RectTransform)window.transform);
         window.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.75f);
 
-        // біле полотно (заглушка)
+        // аркуш старого паперу (якщо картинки нема — біле полотно)   // [CHANGED]
         paper = NewRect("Paper", window.transform);
         paper.sizeDelta = new Vector2(900f, 820f);
-        paper.gameObject.AddComponent<Image>().color = new Color(0.97f, 0.96f, 0.92f);
+        Image paperImage = paper.gameObject.AddComponent<Image>();                                   // [CHANGED]
+        paperImage.color = new Color(0.97f, 0.96f, 0.92f);                                           // [CHANGED]
+        Sprite paperSprite = Resources.Load<Sprite>("UI/ui_letter_paper");                           // [NEW] Assets/_Project/Resources/UI/ui_letter_paper.png
+        if (paperSprite != null) { paperImage.sprite = paperSprite; paperImage.color = Color.white; } // [NEW]
 
         Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");   // вбудований шрифт, кирилиця є
         var ink = new Color(0.2f, 0.15f, 0.1f);
 
         titleText = NewText("Title", paper, font, 44, FontStyle.Bold, TextAnchor.MiddleCenter, ink);
-        Place(titleText.rectTransform, new Vector2(80f, -130f), new Vector2(-80f, -40f));
+        Place(titleText.rectTransform, new Vector2(80f, 820f - 130f), new Vector2(-80f, -40f));   // [CHANGED] смужка 90 px угорі аркуша; було -130 — заголовок розтягувався на весь аркуш і стояв посередині, поверх тексту
 
         bodyText = NewText("Body", paper, font, 32, FontStyle.Italic, TextAnchor.UpperLeft, ink);
         bodyText.lineSpacing = 1.15f;

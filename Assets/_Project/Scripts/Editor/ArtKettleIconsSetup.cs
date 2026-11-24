@@ -195,6 +195,7 @@ public static class ArtKettleIconsSetup
     private static void SetupEnvelope(Transform envelope)
     {
         var sr = envelope.GetComponent<SpriteRenderer>();
+        if (sr != null && sr.sprite != null && sr.sprite.texture.name != "gray_square") return;   // [NEW] конверт уже намальовано (ArtMissingSpritesSetup) — не чіпаємо
         if (sr != null) sr.color = PaperColor;
         envelope.localScale = new Vector3(EnvelopeSize.x, EnvelopeSize.y, 1f);
 
