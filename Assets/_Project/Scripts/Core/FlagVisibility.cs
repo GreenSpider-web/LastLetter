@@ -6,7 +6,7 @@ using UnityEngine;
 public class FlagVisibility : MonoBehaviour
 {
     [SerializeField] private GameObject target;
-    [SerializeField] private string[] hideFlags = { "tailor_left" };
+    [SerializeField] private new string[] hideFlags = { "tailor_left" };
 
     private void Start()
     {

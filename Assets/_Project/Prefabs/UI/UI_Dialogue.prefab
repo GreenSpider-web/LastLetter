@@ -756,9 +756,13 @@ MonoBehaviour:
       portrait: {fileID: 6746612132835300311, guid: f2ad714b1fa03c348ab73dd83a67be76, type: 3}
   - id: panteleimon
     displayName: "\u041F\u0430\u043D\u0442\u0435\u043B\u0435\u0439\u043C\u043E\u043D"
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: ebe0644ca7b24c51a336e3b055f324f7, type: 3}
     nameColor: {r: 0.75, g: 0.85, b: 0.8, a: 1}
-    emotions: []
+    emotions:
+    - name: smile
+      portrait: {fileID: 21300000, guid: e5613aceb76e428287fff4e63a4f0b96, type: 3}
+    - name: neutral
+      portrait: {fileID: 21300000, guid: ebe0644ca7b24c51a336e3b055f324f7, type: 3}
   - id: stefania
     displayName: "\u041F\u0430\u043D\u0456 \u0421\u0442\u0435\u0444\u0430\u043D\u0456\u044F"
     portrait: {fileID: 0}

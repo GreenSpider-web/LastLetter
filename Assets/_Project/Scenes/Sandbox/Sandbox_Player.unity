@@ -1613,6 +1613,7 @@ GameObject:
   - component: {fileID: 894406524}
   - component: {fileID: 894406523}
   - component: {fileID: 894406528}
+  - component: {fileID: 894406529}
   m_Layer: 0
   m_Name: NPC_Panteleimon
   m_TagString: Untagged
@@ -1697,17 +1698,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.031297, y: -0.19865608}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 14.94, y: 9.61}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 13.00535, y: 9.475958}
   m_EdgeRadius: 0
 --- !u!212 &894406526
 SpriteRenderer:
@@ -1756,10 +1757,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -834221282184194821, guid: 2baa06bdaa8aba446a79f35b4688bb7d, type: 3}
-  m_Color: {r: 0.45, g: 0.5, b: 0.55, a: 1}
+  m_Sprite: {fileID: -3993202090305461938, guid: 740d846cbb15d1e41a7208de8bad6ea1, type: 3}
+  m_Color: {r: 0.96981126, g: 0.96981126, b: 0.96981126, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1777,8 +1778,8 @@ Transform:
   m_GameObject: {fileID: 894406522}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.91, y: -2.72, z: 0}
-  m_LocalScale: {x: 0.8, y: 2.2, z: 1}
+  m_LocalPosition: {x: 19.52, y: -2.25, z: 0}
+  m_LocalScale: {x: 0.21237671, y: 0.33924022, z: 0.24672017}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1810,6 +1811,43 @@ MonoBehaviour:
   closedReply: "\u0414\u0432\u0435\u0440\u0456 \u0437\u0430\u0447\u0438\u043D\u0435\u043D\u0456."
   leftReply: "\u0422\u0443\u0442 \u0443\u0436\u0435 \u043D\u0456\u043A\u043E\u0433\u043E
     \u043D\u0435\u043C\u0430\u0454."
+--- !u!114 &894406529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894406522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa76fe306fd747f5aecfb68f92b84dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCWalkAway
+  leaveFlag: prologue_done
+  walkSprite: {fileID: -5640011952026653710, guid: 7bbcb9884d4bcc4488d899ddc824bba9, type: 3}
+  walkScale: 0.25
+  farScale: 0.65
+  walkFrames:
+  - {fileID: 21300000, guid: 224c1c0a5849426186e592b67a7e0349, type: 3}
+  - {fileID: 21300000, guid: 6537f2a8f49c476b9b11b6bfed2cfc40, type: 3}
+  - {fileID: 21300000, guid: 71ef7639633e4b33b2b4f381e58afb18, type: 3}
+  - {fileID: 21300000, guid: fec90a33d7de4d5ea4183caf51ced22b, type: 3}
+  - {fileID: 21300000, guid: d279463c9bad458db93895be98f1f06f, type: 3}
+  - {fileID: 21300000, guid: 0c6df4194a05451b9881dd94262cb32b, type: 3}
+  framesScale: 0.66
+  framesPerSecond: 6
+  spriteFacesRight: 1
+  path:
+  - {x: 19.2, y: -3.88}
+  - {x: 16.9, y: -2.35}
+  - {x: 19.3, y: -1.35}
+  - {x: 22.8, y: -0.25}
+  standUpDelay: 0.7
+  speed: 1
+  stepsPerSecond: 1.6
+  stepHeight: 0.07
+  stepTilt: 3
+  fadeFrom: 0.7
 --- !u!1 &948893134
 GameObject:
   m_ObjectHideFlags: 0

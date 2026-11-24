@@ -137,25 +137,25 @@ VAR test_mode = false        // true лише в тесті в Inky; Unity не 
 === panteleimon ===
 // розмова з рибалкою (1-А, x = 28)
 { lantern_lit:
-    Світло… Давно тут не було світла. #speaker:panteleimon
+    Світло… Давно тут не було світла. #speaker:panteleimon #emotion:smile
 - else:
-    Темно, дитино. Очі вже не ті, не розгледжу ні букви. #speaker:panteleimon
+    Темно, дитино. Очі вже не ті, не розгледжу ні букви. #speaker:panteleimon #emotion:neutral
 }
 -> finish
 
 === panteleimon_letter ===
 // Ліля віддає лист 1 (LetterManager.Deliver)
 { not lantern_lit:
-    Темно, дитино. Очі вже не ті, не розгледжу ні букви. #speaker:panteleimon
+    Темно, дитино. Очі вже не ті, не розгледжу ні букви. #speaker:panteleimon #emotion:neutral
     Йому бракує світла. Може, ліхтар біля мосту? #speaker:marka
     -> finish
 }
 (Пантелеймон підносить лист до ліхтаря і довго читає.) #speaker:narrator
 { read_letter_fisher:
-    Печатка зламана… Та що вже. Тут ніяких таємниць — лише літо на річці. #speaker:panteleimon
+    Печатка зламана… Та що вже. Тут ніяких таємниць — лише літо на річці. #speaker:panteleimon #emotion:neutral
 }
-Олечка… Пам'ятає. #speaker:panteleimon
-Ну то й мені вже не треба тут сидіти. #speaker:panteleimon
+Олечка… Пам'ятає. #speaker:panteleimon #emotion:smile
+Ну то й мені вже не треба тут сидіти. #speaker:panteleimon #emotion:smile
 ~ prologue_done = true
 Бачила? Прочитав — і відпустив. Так це працює. #speaker:marka
 -> finish
