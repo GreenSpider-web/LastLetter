@@ -133,6 +133,14 @@ public class UI_HUD : MonoBehaviour
 
     private void ShowSaveIcon() => saveUntil = Time.unscaledTime + SaveIconSeconds;
 
+    // Кнопка сумки: те саме, що Tab (UI_Bag лежить у кожній сцені глави 1)   // [NEW]
+    private void ToggleBag()                                                    // [NEW]
+    {                                                                           // [NEW]
+        if (UI_Map.IsOpen || !CanOpenWindow()) return;                          // [NEW]
+        UI_Bag bag = FindAnyObjectByType<UI_Bag>();                             // [NEW]
+        if (bag != null) bag.Toggle();                                          // [NEW]
+    }                                                                           // [NEW]
+
     private void ToggleMap()
     {
         if (UI_Map.IsOpen) UI_Map.Close();
@@ -150,6 +158,8 @@ public class UI_HUD : MonoBehaviour
         // 1. Адреса — паперова етикетка
         Image label = UIBuild.Panel("Address", root.transform, new Vector2(0f, 1f), new Vector2(30f, -30f),
                                     new Vector2(700f, 70f), new Color(0.9f, 0.84f, 0.7f, 0.95f));
+        Sprite labelSprite = Resources.Load<Sprite>("UI/ui_paper_label");                    // [NEW] Assets/_Project/Resources/UI/ui_paper_label.png
+        if (labelSprite != null) { label.sprite = labelSprite; label.color = Color.white; }  // [NEW] паперова етикетка замість однотонної плашки
         addressText = UIBuild.Label("Text", label.transform, 28, FontStyle.Italic, TextAnchor.MiddleLeft, new Color(0.25f, 0.18f, 0.12f));
         addressText.rectTransform.offsetMin = new Vector2(20f, 0f);
         addressText.rectTransform.offsetMax = new Vector2(-20f, 0f);
@@ -160,6 +170,13 @@ public class UI_HUD : MonoBehaviour
         if (mapIcon != null) { Image img = mapButton.GetComponent<Image>(); img.sprite = mapIcon; img.color = Color.white; }   // [NEW]
         else mapButton.GetComponentInChildren<Text>().text = "M";                                           // [NEW] якщо значка нема — буква
         UIBuild.Label("Key", mapButton.transform, 22, FontStyle.Bold, TextAnchor.LowerRight, new Color(0.95f, 0.9f, 0.8f)).text = "M ";   // [NEW] підказка клавіші
+
+        // 3. Кнопка сумки — значок ліворуч від мапи (те саме, що Tab)                                                   // [NEW]
+        Button bagButton = UIBuild.MakeButton("Btn_Bag", root.transform, Vector2.one, new Vector2(-140f, -30f), new Vector2(96f, 96f), "", ToggleBag);   // [NEW]
+        Sprite bagIcon = Resources.Load<Sprite>("UI/icon_bag");                                                         // [NEW] Assets/_Project/Resources/UI/icon_bag.png
+        if (bagIcon != null) { Image img = bagButton.GetComponent<Image>(); img.sprite = bagIcon; img.color = Color.white; }   // [NEW]
+        else bagButton.GetComponentInChildren<Text>().text = "Сумка";                                                   // [NEW] якщо значка нема — слово
+        UIBuild.Label("Key", bagButton.transform, 22, FontStyle.Bold, TextAnchor.LowerRight, new Color(0.95f, 0.9f, 0.8f)).text = "Tab ";   // [NEW]
 
         // 5. Сповіщення
         Image noticeBg = UIBuild.Panel("Notice", root.transform, new Vector2(0.5f, 1f), new Vector2(0f, -30f),
