@@ -46,7 +46,7 @@ public class UI_Bag : MonoBehaviour
     public void Toggle()   // [CHANGED]
     {
         panel.SetActive(!panel.activeSelf);
-        if (panel.activeSelf) AudioManager.PlaySfx(openSound);   // [NEW] звук відкриття сумки
+        AudioManager.PlaySfx(openSound);   // [CHANGED] той самий звук і при відкритті, і при закритті сумки
     }
 
     private void OnSlotClick(int index)

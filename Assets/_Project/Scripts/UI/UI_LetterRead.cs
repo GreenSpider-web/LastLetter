@@ -121,7 +121,7 @@ public class UI_LetterRead : MonoBehaviour
         var ink = new Color(0.2f, 0.15f, 0.1f);
 
         titleText = NewText("Title", paper, font, 44, FontStyle.Bold, TextAnchor.MiddleCenter, ink);
-        Place(titleText.rectTransform, new Vector2(80f, -130f), new Vector2(-80f, -40f));
+        Place(titleText.rectTransform, new Vector2(80f, 820f - 130f), new Vector2(-80f, -40f));   // [CHANGED] смужка 90 px угорі аркуша; було -130 — заголовок розтягувався на весь аркуш і стояв посередині, поверх тексту
 
         bodyText = NewText("Body", paper, font, 32, FontStyle.Italic, TextAnchor.UpperLeft, ink);
         bodyText.lineSpacing = 1.15f;
